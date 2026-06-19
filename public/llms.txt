@@ -1,0 +1,24 @@
+# NodeDots
+
+NodeDots is a personal developer portfolio and product-builder profile focused on thoughtful web products for learning, clarity, trust, and practical user experience.
+
+## Core Principle
+
+Explain first, then invite action.
+
+## Products
+
+- VennURL: trusted link previews and safer sharing.
+- Tabmeet: clearer browsing decisions and objective-based browsing.
+- Accentta: speech clarity and accent coaching.
+
+## Useful Pages
+
+- Home: https://nodedots.com/
+- X: https://x.com/nodedots
+- GitHub: https://github.com/nodedots
+- Telegram: https://t.me/nodedots
+
+## Contact
+
+Use the booking, email, and social links on the NodeDots site for collaboration, product discussions, and developer inquiries.
