@@ -27,40 +27,8 @@ html {
   color: #18181b;
 }
 
-@keyframes realm-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -10px, 0);
-  }
-}
-
-@keyframes realm-orbit {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-.realm-float {
-  animation: realm-float 6s ease-in-out infinite;
-}
-
-.realm-orbit {
-  animation: realm-orbit 38s linear infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .realm-float,
-  .realm-orbit {
-    animation: none;
   }
 }

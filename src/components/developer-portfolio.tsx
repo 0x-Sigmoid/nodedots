@@ -291,7 +291,7 @@ export function DeveloperPortfolio() {
             </div>
             <div className="mt-5 grid gap-5 sm:grid-cols-[150px_1fr]">
               <Image
-                src="/images/avatars/nodedots.png"
+                src="/nodedots.png"
                 alt="NodeDots developer portrait"
                 width={150}
                 height={150}
@@ -360,28 +360,53 @@ function LiveXPanel() {
       window.twttr?.widgets?.load(timelineRef.current);
     };
 
-    if (window.twttr?.widgets) {
-      loadTimeline();
-      return;
+    const loadScript = () => {
+      if (window.twttr?.widgets) {
+        loadTimeline();
+        return;
+      }
+
+      const existingScript = document.querySelector<HTMLScriptElement>(
+        'script[src="https://platform.twitter.com/widgets.js"]',
+      );
+
+      if (existingScript) {
+        existingScript.addEventListener("load", loadTimeline, { once: true });
+        return () => existingScript.removeEventListener("load", loadTimeline);
+      }
+
+      const script = document.createElement("script");
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      script.charset = "utf-8";
+      script.addEventListener("load", loadTimeline, { once: true });
+      document.body.appendChild(script);
+
+      return () => script.removeEventListener("load", loadTimeline);
+    };
+
+    const target = timelineRef.current;
+    if (!target || !("IntersectionObserver" in window)) {
+      return loadScript();
     }
 
-    const existingScript = document.querySelector<HTMLScriptElement>(
-      'script[src="https://platform.twitter.com/widgets.js"]',
+    let cleanup: (() => void) | undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        cleanup = loadScript();
+        observer.disconnect();
+      },
+      { rootMargin: "250px" },
     );
 
-    if (existingScript) {
-      existingScript.addEventListener("load", loadTimeline, { once: true });
-      return () => existingScript.removeEventListener("load", loadTimeline);
-    }
+    observer.observe(target);
 
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    script.charset = "utf-8";
-    script.addEventListener("load", loadTimeline, { once: true });
-    document.body.appendChild(script);
-
-    return () => script.removeEventListener("load", loadTimeline);
+    return () => {
+      observer.disconnect();
+      cleanup?.();
+    };
   }, []);
 
   return (
