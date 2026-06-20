@@ -3,12 +3,13 @@ import { DeveloperPortfolio } from "@/components/developer-portfolio";
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "NodeDots",
+  name: "@nodedots",
+  alternateName: "NodeDots",
   url: "https://nodedots.com",
   image: "https://nodedots.com/nodedots.png",
-  jobTitle: "Developer and product builder",
+  jobTitle: "Developer",
   description:
-    "NodeDots builds thoughtful web products for learning, clarity, trust, and practical user experience.",
+    "@nodedots builds simple tools that help people make better decisions around trust, clarity, and AI.",
   sameAs: [
     "https://x.com/nodedots",
     "https://github.com/nodedots",
@@ -16,13 +17,12 @@ const structuredData = {
     "https://t.me/nodedots",
   ],
   knowsAbout: [
-    "Web product development",
-    "User experience",
-    "Trust-first interfaces",
-    "Product strategy",
+    "Link trust",
+    "Browser decision tools",
+    "AI decision support",
+    "Practical user experience",
     "VennURL",
     "Tabmeet",
-    "Accentta",
   ],
 };
 

@@ -1,7 +1,7 @@
 {
   "name": "NodeDots",
   "short_name": "NodeDots",
-  "description": "Developer portfolio for thoughtful web products built around learning, clarity, and trust.",
+  "description": "Portfolio for @nodedots, building tools for trust, clarity, and AI decisions.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fffdf8",

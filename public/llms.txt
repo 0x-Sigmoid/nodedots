@@ -1,6 +1,6 @@
 # NodeDots
 
-NodeDots is a personal developer portfolio and product-builder profile focused on thoughtful web products for learning, clarity, trust, and practical user experience.
+NodeDots is the portfolio of @nodedots, a developer building simple tools that help people make better decisions around trust, clarity, and AI.
 
 ## Core Principle
 
@@ -8,9 +8,9 @@ Explain first, then invite action.
 
 ## Products
 
-- VennURL: trusted link previews and safer sharing.
-- Tabmeet: clearer browsing decisions and objective-based browsing.
-- Accentta: speech clarity and accent coaching.
+- VennURL: a free web app that shows what is behind a link before someone clicks it.
+- Tabmeet: a browser tool that turns scattered open tabs into tradeoffs, risks, and recommendations.
+- Third product: coming soon.
 
 ## Useful Pages
 

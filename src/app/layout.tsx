@@ -14,30 +14,30 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "NodeDots | Developer Portfolio for Thoughtful Web Products",
+    default: "@nodedots | Tools for Trust, Clarity, and AI Decisions",
     template: "%s | NodeDots",
   },
   description:
-    "NodeDots is the developer portfolio of a product builder creating thoughtful web products around learning, clarity, trust, and practical user experience.",
+    "@nodedots builds simple tools that help people make better decisions around trust, clarity, and AI.",
   applicationName: "NodeDots",
-  authors: [{ name: "NodeDots", url: "https://x.com/nodedots" }],
-  creator: "NodeDots",
-  publisher: "NodeDots",
+  authors: [{ name: "@nodedots", url: "https://x.com/nodedots" }],
+  creator: "@nodedots",
+  publisher: "@nodedots",
   metadataBase: new URL("https://nodedots.com"),
   alternates: {
     canonical: "/",
   },
   keywords: [
     "NodeDots",
-    "NodeDots developer",
+    "@nodedots",
+    "independent developer",
     "web product developer",
-    "product builder",
     "VennURL",
     "Tabmeet",
-    "Accentta",
-    "UX portfolio",
-    "trust-first products",
-    "practical user experience",
+    "link trust",
+    "browser decisions",
+    "AI tools",
+    "trust and clarity",
   ],
   icons: {
     icon: [
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "NodeDots | Developer Portfolio",
+    title: "@nodedots | Tools for Trust, Clarity, and AI Decisions",
     description:
-      "Thoughtful web products for learning, clarity, and trust. Explore NodeDots products, notes, booking, and live updates.",
+      "Simple tools that explain first, then invite action.",
     url: "/",
     siteName: "NodeDots",
     images: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         url: "/nodedots.png",
         width: 1254,
         height: 1254,
-        alt: "NodeDots developer profile image",
+        alt: "NodeDots logo mark",
       },
     ],
     locale: "en_US",
@@ -66,9 +66,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NodeDots | Developer Portfolio",
+    title: "@nodedots | Tools for Trust, Clarity, and AI Decisions",
     description:
-      "Thoughtful web products for learning, clarity, and trust.",
+      "Simple tools for trust, clarity, and AI decisions.",
     creator: "@nodedots",
     images: ["/nodedots.png"],
   },
