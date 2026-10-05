@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { StateDot } from "./state-dot";
+import { WaitlistForm } from "./waitlist-form";
 
 const states = {
   confirmed: { label: "Confirmed", meaning: "Matches the repo evidence." },
@@ -195,36 +197,6 @@ function Mark() {
   );
 }
 
-function Dot({ state }: { state: State }) {
-  return (
-    <svg className={`state-dot state-${state}`} viewBox="0 0 20 20" aria-hidden="true">
-      {state === "confirmed" ? (
-        <circle cx="10" cy="10" r="6" fill="currentColor" />
-      ) : state === "conflicting" ? (
-        <>
-          <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" strokeWidth="2" />
-          <path d="M4 16L16 4" stroke="currentColor" strokeWidth="2" />
-        </>
-      ) : state === "action" ? (
-        <>
-          <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="10" cy="10" r="4" fill="currentColor" />
-        </>
-      ) : (
-        <circle
-          cx="10"
-          cy="10"
-          r="6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeDasharray={state === "uncertain" ? "3 3" : undefined}
-        />
-      )}
-    </svg>
-  );
-}
-
 const edges = [
   "M90 150C190 150 190 72 300 72",
   "M90 150C190 150 190 228 300 228",
@@ -238,10 +210,6 @@ export function NodeDotsLanding() {
   const [active, setActive] = useState(0);
   const [selected, setSelected] = useState(3);
   const [selectionVersion, setSelectionVersion] = useState(0);
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "saving" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
-  const [privacy, setPrivacy] = useState(false);
 
   function selectNode(index: number) {
     setSelected(index);
@@ -295,38 +263,6 @@ export function NodeDotsLanding() {
     return () => io.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!privacy) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPrivacy(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [privacy]);
-
-  async function join(value: string, website = "") {
-    const clean = value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean) || clean.length > 254) {
-      throw new Error("Enter a valid email address.");
-    }
-    setStatus("saving");
-    setMessage("");
-    try {
-      const response = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: clean, consent: true, website }),
-      });
-      const body = (await response.json()) as { message?: string };
-      if (!response.ok) throw new Error(body.message || "We couldn't save your email. Please try again.");
-      setStatus("success");
-      setMessage("You're on the list. We'll be in touch when early access opens.");
-    } catch (error) {
-      setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Please try again in a moment.");
-    }
-  }
-
   const journey = journeys[active];
   const finding = journey.nodes[selected];
 
@@ -368,7 +304,7 @@ export function NodeDotsLanding() {
               />
             </svg>
           </button>
-          <a className="nav-join" href="#waitlist">
+          <a className="nav-join" href="#signup">
             Join the waitlist <span aria-hidden="true">↗</span>
           </a>
         </nav>
@@ -378,7 +314,7 @@ export function NodeDotsLanding() {
         <section className="hero hero-dots" aria-labelledby="hero-title">
           <div className="hero-copy">
             <p className="product-label">
-              <Dot state="action" /> NodeDots Code <span aria-hidden="true">/</span> Early access
+              <StateDot state="action" /> NodeDots Code <span aria-hidden="true">/</span> Early access
             </p>
             <h1 id="hero-title">
               Connect the dots.
@@ -389,58 +325,8 @@ export function NodeDotsLanding() {
               NodeDots reads your pull request against the whole repo and shows what it touched, what it
               missed, and what now conflicts.
             </p>
-            <div className="hero-signup" id="waitlist">
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  const form = new FormData(event.currentTarget);
-                  void join(email, String(form.get("website") || ""));
-                }}
-              >
-                <label className="sr-only" htmlFor="email">
-                  Your email address
-                </label>
-                <div className="signup-row">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    maxLength={254}
-                    placeholder="Your email address"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    disabled={status === "saving" || status === "success"}
-                    aria-invalid={status === "error"}
-                    aria-describedby="signup-notice signup-result"
-                  />
-                  <button className="button" disabled={status === "saving" || status === "success"} type="submit">
-                    <Dot state="action" />
-                    {status === "saving" ? "Joining…" : status === "success" ? "You're on the list" : "Join the waitlist"}
-                  </button>
-                </div>
-                <div className="honeypot" aria-hidden="true">
-                  <label htmlFor="website">Website</label>
-                  <input id="website" name="website" tabIndex={-1} autoComplete="off" />
-                </div>
-                <p id="signup-result" className={`form-message ${status === "error" ? "error" : ""}`} role="status">
-                  {message && (
-                    <>
-                      <Dot state={status === "error" ? "conflicting" : "confirmed"} />
-                      {message}
-                    </>
-                  )}
-                </p>
-                <p id="signup-notice" className="signup-notice">
-                  Early-access and launch updates. Unsubscribe anytime.
-                  <br />
-                  By joining, you agree to receive these updates.{" "}
-                  <button type="button" className="text-button" onClick={() => setPrivacy(true)}>
-                    Privacy
-                  </button>
-                </p>
-              </form>
+            <div className="hero-signup" id="signup">
+              <WaitlistForm idPrefix="hero" />
             </div>
           </div>
           <aside className="hero-report" aria-label="Example NodeDots impact report">
@@ -459,45 +345,45 @@ export function NodeDotsLanding() {
               </div>
               <div className="report-stat state-missing">
                 <span className="report-value">
-                  <Dot state="missing" />3
+                  <StateDot state="missing" />3
                 </span>
                 <span className="report-key">Missing</span>
               </div>
               <div className="report-stat state-conflicting">
                 <span className="report-value">
-                  <Dot state="conflicting" />1
+                  <StateDot state="conflicting" />1
                 </span>
                 <span className="report-key">Conflicting</span>
               </div>
               <div className="report-stat state-missing">
                 <span className="report-value">
-                  <Dot state="missing" />2
+                  <StateDot state="missing" />2
                 </span>
                 <span className="report-key">Untested</span>
               </div>
               <div className="report-stat state-uncertain">
                 <span className="report-value">
-                  <Dot state="uncertain" />1
+                  <StateDot state="uncertain" />1
                 </span>
                 <span className="report-key">Uncertain</span>
               </div>
             </div>
             <ul className="report-findings">
               <li>
-                <Dot state="missing" />
+                <StateDot state="missing" />
                 <p>
                   <strong>Missing backfill</strong> — organization_id added, but existing users have no
                   migration path.
                 </p>
               </li>
               <li>
-                <Dot state="conflicting" />
+                <StateDot state="conflicting" />
                 <p>
                   <strong>Schema / UI mismatch</strong> — RoleSelector.tsx still offers the old admin value.
                 </p>
               </li>
               <li>
-                <Dot state="action" />
+                <StateDot state="action" />
                 <p>
                   <strong>Before merging</strong> — map Stripe customers, then add an editor-permission test.
                 </p>
@@ -607,7 +493,7 @@ export function NodeDotsLanding() {
                           title="Show finding"
                           type="button"
                         >
-                          <Dot state={node.state} />
+                          <StateDot state={node.state} />
                           <span>{node.name} </span>
                           <small>{states[node.state].label}</small>
                         </button>
@@ -618,7 +504,7 @@ export function NodeDotsLanding() {
                 </div>
                 <aside className="finding" aria-label="Selected component finding" aria-live="polite">
                   <span className={`finding-state state-${finding.state}`}>
-                    <Dot state={finding.state} />
+                    <StateDot state={finding.state} />
                     {states[finding.state].label}
                   </span>
                   <span className="finding-component">{finding.name}</span>
@@ -642,7 +528,7 @@ export function NodeDotsLanding() {
             {(Object.keys(states) as State[]).map((state) => (
               <li key={state}>
                 <div>
-                  <Dot state={state} />
+                  <StateDot state={state} />
                   <strong>{states[state].label}</strong>
                 </div>
                 <p>{states[state].meaning}</p>
@@ -676,35 +562,11 @@ export function NodeDotsLanding() {
         </div>
         <div className="footer-links">
           <span>© {new Date().getFullYear()} NodeDots</span>
-          <button className="text-button" onClick={() => setPrivacy(true)} type="button">
+          <a className="text-button" href="/waitlist">
             Waitlist privacy
-          </button>
+          </a>
         </div>
       </footer>
-
-      {privacy && (
-        <div className="privacy-overlay">
-          <div className="privacy-dialog" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
-            <h2 id="privacy-title">Waitlist privacy</h2>
-            <p>
-              We collect your email address and the time you join so we can send NodeDots early-access
-              invitations and launch updates. We store signups privately and do not publish or sell your
-              email address.
-            </p>
-            <p>
-              We use short-lived, hashed request identifiers to limit automated abuse. This page does not
-              connect to your repositories or process your code.
-            </p>
-            <p>
-              Joining is optional. Each update will include an unsubscribe option. We will review and
-              remove waitlist data when the early-access campaign ends.
-            </p>
-            <button className="button" onClick={() => setPrivacy(false)} type="button">
-              Got it
-            </button>
-          </div>
-        </div>
-      )}
     </>
   );
 }
