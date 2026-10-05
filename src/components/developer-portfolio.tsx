@@ -2,311 +2,60 @@ import Image from "next/image";
 import { notes } from "@/lib/notes";
 
 const products = [
-  {
-    name: "VennURL",
-    description: "Shows what is behind a link before you click it.",
-    why: "It helps people make safer decisions around link trust and sharing.",
-    status: "Live",
-    cta: "Try it",
-    href: "#",
-  },
-  {
-    name: "Tabmeet",
-    description:
-      "Turns scattered open tabs into clear tradeoffs, risks, and recommendations.",
-    why: "It helps you stop searching and start deciding.",
-    status: "Live",
-    cta: "Learn more",
-    href: "#",
-  },
-  {
-    name: "Coming soon",
-    description: "A third tool is being shaped quietly.",
-    why: "It will follow the same rule: explain first, then invite action.",
-    status: "Coming Soon",
-    cta: "Coming soon",
-    href: "#",
-  },
+  { number: "01", name: "VennURL", label: "Link trust", description: "See what is behind a link before you click it.", detail: "A small layer of context for a high-trust moment.", className: "product-card-dark", cta: "Explore the thinking", href: "#notes" },
+  { number: "02", name: "Tabmeet", label: "Decision support", description: "Turn a crowded set of open tabs into a clear next step.", detail: "Less searching. More seeing what the tradeoff actually is.", className: "product-card-lemon", cta: "Read the principle", href: "#principles" },
+  { number: "03", name: "NodeDots Code", label: "In development", description: "Read a code change in the context of the whole system.", detail: "What did it touch, what did it miss, and what now conflicts?", className: "product-card-paper", cta: "Follow the build", href: "#contact" },
 ];
 
-const latestThinking = [
-  {
-    text: "Good tools do not rush the decision. They make the next step easier to understand.",
-  },
-  {
-    text: "Trust is a product feature when the interface explains what is happening.",
-  },
-  {
-    text: "AI should reduce uncertainty, not decorate it.",
-  },
+const principles = [
+  ["01", "Explain before asking", "A useful interface gives people enough context to make the next decision with confidence."],
+  ["02", "Keep the surface narrow", "The strongest tools do one important job clearly instead of turning every possibility into a feature."],
+  ["03", "Make uncertainty visible", "Trust grows when a product shows what it knows, what it does not, and what deserves a closer look."],
 ];
 
 const navItems = [
   { label: "Work", href: "#work" },
   { label: "Notes", href: "#notes" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
-  { label: "@nodedots", href: "https://x.com/nodedots", external: true },
 ];
 
+function Mark() {
+  return <svg viewBox="0 0 50 16" aria-hidden="true" className="portfolio-mark"><path d="M5 8H45"/><circle cx="5" cy="8" r="3.5"/><circle cx="15" cy="8" r="3.5"/><circle cx="25" cy="8" r="3.5"/><circle cx="45" cy="8" r="3.5"/><circle className="portfolio-mark-hollow" cx="35" cy="8" r="3.5"/></svg>;
+}
+
 export function DeveloperPortfolio() {
-  return (
-    <main className="min-h-svh bg-[#f8f8f8] text-[#1a1a1a]">
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
-        <a
-          href="#top"
-          className="flex items-center gap-3 font-mono text-sm font-semibold tracking-tight outline-none focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4"
-          aria-label="@nodedots home"
-        >
-          <span
-            aria-hidden="true"
-            className="relative grid size-8 place-items-center rounded-full border border-[#d4d4d4] bg-white"
-          >
-            <span className="size-2 rounded-full bg-[#3b5bdb]" />
-            <span className="absolute right-2 top-2 size-1 rounded-full bg-[#1a1a1a]" />
-            <span className="absolute bottom-2 left-2 size-1 rounded-full bg-[#1a1a1a]" />
-          </span>
-          @nodedots
-        </a>
-        <nav
-          aria-label="Primary navigation"
-          className="flex flex-wrap justify-end gap-x-4 gap-y-2 text-sm text-neutral-600"
-        >
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              target={item.external ? "_blank" : undefined}
-              rel={item.external ? "noopener noreferrer" : undefined}
-              className="outline-none transition hover:text-[#1a1a1a] focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </header>
+  return <main className="portfolio-shell">
+    <header className="portfolio-header">
+      <a className="portfolio-brand" href="#top" aria-label="NodeDots home"><Mark/><span>NodeDots</span></a>
+      <nav aria-label="Primary navigation" className="portfolio-nav">
+        {navItems.map(item => <a key={item.label} href={item.href}>{item.label}</a>)}
+        <a href="https://x.com/nodedots" target="_blank" rel="noopener noreferrer" className="portfolio-nav-external">@nodedots <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
 
-      <section
-        id="top"
-        aria-labelledby="hero-title"
-        className="mx-auto grid min-h-[78svh] w-full max-w-6xl place-items-center px-5 py-20 sm:px-8"
-      >
-        <div className="relative w-full max-w-3xl">
-          <div
-            aria-hidden="true"
-            className="absolute -right-4 -top-8 hidden h-40 w-40 rounded-full border border-[#e5e5e5] bg-[radial-gradient(circle,_#d4d4d4_1px,_transparent_1px)] bg-[length:18px_18px] sm:block"
-          />
-          <p className="font-mono text-sm font-medium text-[#3b5bdb]">
-            @nodedots
-          </p>
-          <h1
-            id="hero-title"
-            className="mt-5 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl"
-          >
-            I build simple tools for trust, clarity, and AI decisions.
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-600">
-            Explain first, then invite action.
-          </p>
-        </div>
-      </section>
+    <section id="top" className="portfolio-hero" aria-labelledby="hero-title">
+      <div className="hero-copy">
+        <p className="portfolio-eyebrow"><span className="eyebrow-dot" aria-hidden="true"/> Independent product studio</p>
+        <h1 id="hero-title">I build tools that make the next step easier to see.</h1>
+        <p className="hero-lead">NodeDots makes small products around trust, clarity, and AI-assisted decisions. Explain first, then invite action.</p>
+        <div className="hero-actions"><a className="portfolio-button portfolio-button-dark" href="#work">See the work <span aria-hidden="true">↘</span></a><a className="portfolio-button portfolio-button-quiet" href="#notes">Read the notes <span aria-hidden="true">↘</span></a></div>
+      </div>
+      <div className="hero-instrument" role="img" aria-label="NodeDots field instrument showing trust, clarity, and action connected"><div className="instrument-header"><span>NODEDOTS / FIELD 01</span><span className="instrument-live"><span aria-hidden="true"/> Live system</span></div><div className="instrument-stage"><div className="instrument-ring instrument-ring-one"/><div className="instrument-ring instrument-ring-two"/><div className="instrument-core"><Mark/><span>what should happen next?</span></div><span className="instrument-node instrument-node-a">trust</span><span className="instrument-node instrument-node-b">clarity</span><span className="instrument-node instrument-node-c">action</span></div><div className="instrument-footer"><span>connect the pieces</span><span>01 / 03</span></div></div>
+    </section>
 
-      <section
-        aria-labelledby="about-title"
-        className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8"
-      >
-        <div className="grid gap-8 border-t border-[#e5e5e5] pt-12 md:grid-cols-[0.42fr_0.58fr]">
-          <div>
-            <h2 id="about-title" className="text-2xl font-semibold">
-              About
-            </h2>
-            <Image
-              src="/nodedots.png"
-              alt="NodeDots abstract avatar"
-              width={120}
-              height={120}
-              className="mt-6 size-24 rounded-2xl border border-[#e5e5e5] bg-white object-cover sm:size-28"
-            />
-          </div>
-          <div className="space-y-5 text-lg leading-8 text-neutral-700">
-            <p>
-              @nodedots builds small tools around trust, clarity, and AI.
-            </p>
-            <p>
-              The work starts with a simple question: what does someone need to
-              understand before they act?
-            </p>
-            <p>
-              Products are kept narrow on purpose, with clear copy, visible
-              tradeoffs, and fewer distractions.
-            </p>
-            <p>The handle stays separate so the work stays in front.</p>
-          </div>
-        </div>
-      </section>
+    <div className="portfolio-signal" aria-label="Portfolio overview"><span><strong>03</strong> products in the studio</span><span><strong>03</strong> notes from the workbench</span><span><strong>01</strong> operating principle</span></div>
 
-      <section
-        id="work"
-        aria-labelledby="work-title"
-        className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8"
-      >
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 id="work-title" className="text-2xl font-semibold">
-              Work
-            </h2>
-            <p className="mt-2 text-neutral-600">
-              Three tools, each built around a clearer decision.
-            </p>
-          </div>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {products.map((product) => (
-            <article
-              key={product.name}
-              className="flex min-h-[280px] flex-col rounded-2xl border border-[#e5e5e5] bg-white p-5"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-2xl font-semibold tracking-tight">
-                  {product.name}
-                </h3>
-                <span className="rounded-full border border-[#e5e5e5] px-2.5 py-1 text-xs font-medium text-neutral-600">
-                  {product.status}
-                </span>
-              </div>
-              <p className="mt-5 text-base leading-7 text-neutral-700">
-                {product.description}
-              </p>
-              <p className="mt-4 text-base leading-7 text-neutral-600">
-                {product.why}
-              </p>
-              <a
-                href={product.href}
-                className={`mt-auto inline-flex min-h-11 items-center justify-center rounded-full px-4 text-sm font-semibold outline-none transition focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4 ${
-                  product.status === "Coming Soon"
-                    ? "pointer-events-none border border-[#e5e5e5] text-neutral-500"
-                    : "bg-[#3b5bdb] text-white hover:bg-[#2f49af]"
-                }`}
-                aria-disabled={product.status === "Coming Soon"}
-              >
-                {product.cta}
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
+    <section id="about" className="portfolio-section about-section" aria-labelledby="about-title"><div className="section-kicker">About the work</div><div className="about-grid"><div><h2 id="about-title">Useful should feel calm.</h2><Image src="/nodedots.png" alt="NodeDots abstract avatar" width={1254} height={1254} className="about-image" priority/></div><div className="about-copy"><p>NodeDots is an independent product studio interested in the moments where people have to decide whether to trust something, understand something, or act on it.</p><p>The work stays deliberately narrow: clear language, visible tradeoffs, and interfaces that do not ask for confidence they have not earned.</p><p>Every product starts with the same question: what does someone need to see before they can move forward?</p></div></div></section>
 
-      <section
-        aria-labelledby="thinking-title"
-        className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8"
-      >
-        <div className="rounded-3xl border border-[#e5e5e5] bg-white p-5 sm:p-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 id="thinking-title" className="text-2xl font-semibold">
-                Latest thinking
-              </h2>
-              <p className="mt-2 text-neutral-600">
-                Short notes from @nodedots, kept plain.
-              </p>
-            </div>
-            <a
-              href="https://x.com/nodedots"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e5e5e5] px-4 text-sm font-semibold outline-none transition hover:border-[#3b5bdb] hover:text-[#3b5bdb] focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4"
-            >
-              Follow @nodedots
-            </a>
-          </div>
-          <div className="mt-6 grid gap-3 md:grid-cols-3">
-            {latestThinking.map((post) => (
-              <p
-                key={post.text}
-                className="rounded-2xl border border-[#e5e5e5] bg-[#f8f8f8] p-4 text-sm leading-6 text-neutral-700"
-              >
-                {post.text}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
+    <section id="work" className="portfolio-section work-section" aria-labelledby="work-title"><div className="section-intro"><div><div className="section-kicker">Selected work</div><h2 id="work-title">Small tools for high-trust moments.</h2></div><p>Three products, one shared instinct: make the decision easier to understand.</p></div><div className="product-grid">{products.map(product => <article key={product.name} className={`product-card ${product.className}`}><div className="product-card-top"><span className="product-number">{product.number}</span><span className="product-label">{product.label}</span></div><div><h3>{product.name}</h3><p className="product-description">{product.description}</p><p className="product-detail">{product.detail}</p></div><a href={product.href} className="product-link">{product.cta} <span aria-hidden="true">↗</span></a></article>)}</div></section>
 
-      <section
-        id="notes"
-        aria-labelledby="notes-title"
-        className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8"
-      >
-        <div className="mb-8">
-          <h2 id="notes-title" className="text-2xl font-semibold">
-            Notes from the workbench.
-          </h2>
-          <p className="mt-2 max-w-2xl text-neutral-600">
-            Thinking out loud about trust, clarity, and decisions.
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {notes.map((note) => (
-            <article
-              key={note.title}
-              className="rounded-2xl border border-[#e5e5e5] bg-white p-5"
-            >
-              <p className="font-mono text-xs text-neutral-500">{note.date}</p>
-              <h3 className="mt-4 text-xl font-semibold tracking-tight">
-                {note.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-neutral-600">
-                {note.teaser}
-              </p>
-              <a
-                href={`/notes/${note.slug}`}
-                className="mt-5 inline-flex text-sm font-semibold text-[#3b5bdb] outline-none hover:text-[#2f49af] focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4"
-              >
-                Read more
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
+    <section id="principles" className="portfolio-section principles-section" aria-labelledby="principles-title"><div className="section-intro"><div><div className="section-kicker">The operating system</div><h2 id="principles-title">A few things I keep returning to.</h2></div><p>These are less like rules and more like filters for deciding what deserves to exist.</p></div><div className="principles-list">{principles.map(([number, title, body]) => <article key={number} className="principle-row"><span className="principle-number">{number}</span><h3>{title}</h3><p>{body}</p></article>)}</div></section>
 
-      <section
-        id="contact"
-        aria-labelledby="contact-title"
-        className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8"
-      >
-        <div className="rounded-3xl border border-[#e5e5e5] bg-white p-6 text-center sm:p-10">
-          <h2 id="contact-title" className="text-3xl font-semibold">
-            Work with me
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-neutral-600">
-            Send a short note if you need a clear product interface, a trust
-            layer, or a careful second pass on an idea.
-          </p>
-          <a
-            href="mailto:hello@nodedots.example?subject=Project%20inquiry%20for%20%40nodedots"
-            className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[#3b5bdb] px-6 text-sm font-semibold text-white outline-none transition hover:bg-[#2f49af] focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4"
-          >
-            Email @nodedots
-          </a>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
-            <a
-              href="https://calendly.com/nodedots/intro-call"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-600 outline-none hover:text-[#3b5bdb] focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4"
-            >
-              Book Call
-            </a>
-            <a
-              href="https://t.me/nodedots"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-600 outline-none hover:text-[#3b5bdb] focus-visible:ring-2 focus-visible:ring-[#3b5bdb] focus-visible:ring-offset-4"
-            >
-              Telegram
-            </a>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+    <section id="notes" className="portfolio-section notes-section" aria-labelledby="notes-title"><div className="section-intro"><div><div className="section-kicker">From the workbench</div><h2 id="notes-title">Notes on making things clear.</h2></div><a className="text-link" href="https://x.com/nodedots" target="_blank" rel="noopener noreferrer">Follow the thread <span aria-hidden="true">↗</span></a></div><div className="notes-list">{notes.map(note => <article key={note.slug} className="note-row"><span className="note-date">{note.date}</span><div><h3>{note.title}</h3><p>{note.teaser}</p></div><a className="note-arrow" href={`/notes/${note.slug}`} aria-label={`Read ${note.title}`}>↗</a></article>)}</div></section>
+
+    <section id="contact" className="contact-section" aria-labelledby="contact-title"><div className="contact-kicker">Have a product that needs another set of eyes?</div><h2 id="contact-title">Let’s make the next step clearer.</h2><p>Send a short note about the product, problem, or decision you are working through.</p><a className="contact-button" href="mailto:hello@nodedots.example?subject=Project%20inquiry%20for%20NodeDots">Start a conversation <span aria-hidden="true">↗</span></a><div className="contact-links"><a href="https://t.me/nodedots" target="_blank" rel="noopener noreferrer">Telegram</a><a href="https://calendly.com/nodedots/intro-call" target="_blank" rel="noopener noreferrer">Book a call</a></div></section>
+
+    <footer className="portfolio-footer"><a className="portfolio-brand" href="#top" aria-label="NodeDots home"><Mark/><span>NodeDots</span></a><span>Tools for trust, clarity, and AI decisions.</span><span>© {new Date().getFullYear()} NodeDots</span></footer>
+  </main>;
 }

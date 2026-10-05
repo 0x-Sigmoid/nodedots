@@ -9,7 +9,7 @@ const structuredData = {
   image: "https://nodedots.com/nodedots.png",
   jobTitle: "Developer",
   description:
-    "@nodedots builds simple tools that help people make better decisions around trust, clarity, and AI.",
+    "NodeDots is an independent product studio building small tools for trust, clarity, and AI-assisted decisions.",
   sameAs: [
     "https://x.com/nodedots",
     "https://github.com/nodedots",

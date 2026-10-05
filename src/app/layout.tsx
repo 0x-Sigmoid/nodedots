@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "@nodedots | Tools for Trust, Clarity, and AI Decisions",
+    default: "NodeDots | Tools for trust, clarity, and AI decisions",
     template: "%s | NodeDots",
   },
   description:
-    "@nodedots builds simple tools that help people make better decisions around trust, clarity, and AI.",
+    "NodeDots is an independent product studio building small tools for trust, clarity, and AI-assisted decisions.",
   applicationName: "NodeDots",
   authors: [{ name: "@nodedots", url: "https://x.com/nodedots" }],
   creator: "@nodedots",
