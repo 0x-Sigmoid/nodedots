@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function VisionPage() {
-  return <VisionContent />;
+  return <VisionContent backLabel="Back home" />;
 }

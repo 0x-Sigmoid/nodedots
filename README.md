@@ -21,8 +21,9 @@ The separate `waitlist/` materials are preserved untouched.
 Public marketing:
 
 - `/` — landing (hero, how it works, illustrative change-review demo, future-directions teaser)
-- `/waitlist` — dedicated early-access page (shared signup form, same API contract)
 - `/vision` — Beyond Code: Apply, Contracts, Research, Business, Verify, Decisions
+- `/waitlist` — dedicated early-access page (shared signup form, same API contract)
+- `/waitlist/vision` — What's coming next, scoped to the waitlist (no marketing links, no demo)
 - `/api/waitlist` — waitlist signup endpoint (same JSON contract as the standalone waitlist app)
 
 Product (gated — see below):

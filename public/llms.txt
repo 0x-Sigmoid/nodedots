@@ -24,4 +24,5 @@ The same relationship engine can later support Apply, Contracts, Research, Busin
 
 - Home: https://nodedots.com/
 - Waitlist: https://nodedots.com/waitlist
+- What's next: https://nodedots.com/waitlist/vision
 - Vision: https://nodedots.com/vision

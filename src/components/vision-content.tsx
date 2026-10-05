@@ -75,7 +75,21 @@ function VisionDot({ state }: { state: string }) {
   return <span className={`vision-dot state-${state}`} aria-hidden="true" />;
 }
 
-export function VisionContent() {
+export function VisionContent({
+  homeHref = "/",
+  changeReviewHref = "/",
+  signupHref = "/waitlist",
+  backHref = "/",
+  backLabel = "Back to waitlist",
+}: {
+  /** Brand + footer home. Waitlist scope passes "/waitlist" so visitors never reach marketing. */
+  homeHref?: string;
+  /** "Change review" nav link. Pass null to omit it (no how-it-works exposure). */
+  changeReviewHref?: string | null;
+  signupHref?: string;
+  backHref?: string;
+  backLabel?: string;
+}) {
   function toggleTheme() {
     const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
@@ -109,14 +123,16 @@ export function VisionContent() {
         Skip to content
       </a>
       <header className="site-header vision-header">
-        <a className="brand" href="/" aria-label="NodeDots home">
+        <a className="brand" href={homeHref} aria-label="NodeDots home">
           <Mark />
           <span>NodeDots</span>
         </a>
         <nav aria-label="Main navigation">
-          <a className="explore-link" href="/">
-            Change review
-          </a>
+          {changeReviewHref !== null && (
+            <a className="explore-link" href={changeReviewHref}>
+              Change review
+            </a>
+          )}
           <button
             className="theme-toggle"
             onClick={toggleTheme}
@@ -138,7 +154,7 @@ export function VisionContent() {
               />
             </svg>
           </button>
-          <a className="nav-join" href="/waitlist">
+          <a className="nav-join" href={signupHref}>
             Join the waitlist <span aria-hidden="true">↗</span>
           </a>
         </nav>
@@ -198,7 +214,7 @@ export function VisionContent() {
             <h2 id="close-title">Code is the first place NodeDots connects the dots.</h2>
             <p>Join the early-access list to follow NodeDots Code as it takes shape.</p>
           </div>
-          <a className="button" href="/waitlist">
+          <a className="button" href={signupHref}>
             Join the waitlist <span aria-hidden="true">↗</span>
           </a>
         </section>
@@ -206,7 +222,7 @@ export function VisionContent() {
 
       <footer className="site-footer">
         <div className="footer-identity">
-          <a className="brand" href="/" aria-label="NodeDots home">
+          <a className="brand" href={homeHref} aria-label="NodeDots home">
             <Mark />
             <span>NodeDots</span>
           </a>
@@ -214,8 +230,8 @@ export function VisionContent() {
         </div>
         <div className="footer-links">
           <span>© {new Date().getFullYear()} NodeDots</span>
-          <a className="text-button" href="/">
-            Back to waitlist
+          <a className="text-button" href={backHref}>
+            {backLabel}
           </a>
         </div>
       </footer>

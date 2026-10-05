@@ -20,7 +20,7 @@ export default function WaitlistPage() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <SiteHeader links={[{ href: "/", label: "Home" }]} />
+      <SiteHeader brandHref="/waitlist" links={[{ href: "/waitlist/vision", label: "What's next" }]} />
       <main id="main" className="waitlist-page">
         <p className="product-label">NodeDots Code / Early access</p>
         <h1>Get early access.</h1>
@@ -28,7 +28,7 @@ export default function WaitlistPage() {
           NodeDots reads your pull request against the whole repo and shows what it touched, what it missed,
           and what now conflicts. Leave your email and we&apos;ll write when early access opens.
         </p>
-        <div className="waitlist-form-wrap">
+        <div className="waitlist-form-wrap" id="signup">
           <WaitlistForm idPrefix="page" />
         </div>
         <ol className="waitlist-steps">
@@ -46,14 +46,14 @@ export default function WaitlistPage() {
           </li>
         </ol>
         <p className="waitlist-demo-link">
-          <a className="text-button" href="/#preview">
-            See how NodeDots reads a change <span aria-hidden="true">↗</span>
+          <a className="text-button" href="/waitlist/vision">
+            See what&apos;s coming next <span aria-hidden="true">↗</span>
           </a>
         </p>
       </main>
       <footer className="site-footer">
         <div className="footer-identity">
-          <a className="brand" href="/" aria-label="NodeDots home">
+          <a className="brand" href="/waitlist" aria-label="NodeDots waitlist home">
             <Mark />
             <span>NodeDots</span>
           </a>
@@ -61,8 +61,8 @@ export default function WaitlistPage() {
         </div>
         <div className="footer-links">
           <span>© {new Date().getFullYear()} NodeDots</span>
-          <a className="text-button" href="/">
-            Back home
+          <a className="text-button" href="/waitlist/vision">
+            What&apos;s next
           </a>
         </div>
       </footer>

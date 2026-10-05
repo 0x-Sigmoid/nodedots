@@ -52,10 +52,17 @@ export function ThemeToggle() {
   );
 }
 
-export function SiteHeader({ links }: { links: { href: string; label: string }[] }) {
+export function SiteHeader({
+  links,
+  brandHref = "/",
+}: {
+  links: { href: string; label: string }[];
+  /** Waitlist scope passes "/waitlist" so visitors never reach marketing. */
+  brandHref?: string;
+}) {
   return (
     <header className="site-header">
-      <a className="brand" href="/" aria-label="NodeDots home">
+      <a className="brand" href={brandHref} aria-label="NodeDots home">
         <Mark />
         <span>NodeDots</span>
       </a>
