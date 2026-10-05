@@ -14,66 +14,43 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "NodeDots | Tools for trust, clarity, and AI decisions",
+    default: "NodeDots — Connect the dots before you act",
     template: "%s | NodeDots",
   },
   description:
-    "NodeDots is an independent product studio building small tools for trust, clarity, and AI-assisted decisions.",
+    "NodeDots Code reads your pull request against the whole repo and shows what it touched, what it missed, and what now conflicts. Join the early-access waitlist.",
   applicationName: "NodeDots",
-  authors: [{ name: "@nodedots", url: "https://x.com/nodedots" }],
-  creator: "@nodedots",
-  publisher: "@nodedots",
   metadataBase: new URL("https://nodedots.com"),
   alternates: {
     canonical: "/",
   },
   keywords: [
     "NodeDots",
-    "@nodedots",
-    "independent developer",
-    "web product developer",
-    "VennURL",
-    "Tabmeet",
-    "link trust",
-    "browser decisions",
-    "AI tools",
-    "trust and clarity",
+    "NodeDots Code",
+    "pull request review",
+    "change impact analysis",
+    "missing tests",
+    "API contract drift",
+    "AI code verification",
+    "GitHub pull requests",
   ],
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/nodedots.png", type: "image/png" },
-    ],
-    apple: [{ url: "/nodedots.png", type: "image/png" }],
-  },
-  manifest: "/site.webmanifest",
   openGraph: {
-    title: "@nodedots | Tools for Trust, Clarity, and AI Decisions",
-    description:
-      "Simple tools that explain first, then invite action.",
+    title: "NodeDots — Connect the dots. Before you ship.",
+    description: "Read your change against the whole repo. NodeDots Code · Early access.",
     url: "/",
     siteName: "NodeDots",
-    images: [
-      {
-        url: "/nodedots.png",
-        width: 1254,
-        height: 1254,
-        alt: "NodeDots logo mark",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "@nodedots | Tools for Trust, Clarity, and AI Decisions",
-    description:
-      "Simple tools for trust, clarity, and AI decisions.",
-    creator: "@nodedots",
-    images: ["/nodedots.png"],
+    title: "NodeDots — Connect the dots. Before you ship.",
+    description: "Read your change against the whole repo.",
   },
   category: "technology",
 };
+
+const themeInit = `(function(){var t;try{t=localStorage.getItem('nodedots-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.classList.toggle('dark',t==='dark')})()`;
 
 export default function RootLayout({
   children,
@@ -81,12 +58,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>

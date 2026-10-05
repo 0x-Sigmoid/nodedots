@@ -1,24 +1,26 @@
 # NodeDots
 
-NodeDots is the portfolio of @nodedots, a developer building simple tools that help people make better decisions around trust, clarity, and AI.
+NodeDots Code is a verification layer for code changes. It reads a pull request in the context of the whole repository and reports what the change affects, what it missed, and what now conflicts.
 
-## Core Principle
+Tagline: Connect the dots before you act.
 
-Explain first, then invite action.
+## Finding states
 
-## Products
+- Confirmed: supported by the available evidence.
+- Missing: an expected piece is absent.
+- Conflicting: two parts of the system disagree.
+- Uncertain: the available evidence cannot establish the answer.
+- Action Required: a concrete next step follows from the analysis.
 
-- VennURL: a free web app that shows what is behind a link before someone clicks it.
-- Tabmeet: a browser tool that turns scattered open tabs into tradeoffs, risks, and recommendations.
-- Third product: coming soon.
+## Launch product
 
-## Useful Pages
+NodeDots Code, starting with GitHub pull requests. Join the early-access waitlist on the home page.
+
+## Future directions
+
+The same relationship engine can later support Apply, Contracts, Research, Business, Verify, and Decisions. See /vision. Code ships first; these directions are in exploration.
+
+## Useful pages
 
 - Home: https://nodedots.com/
-- X: https://x.com/nodedots
-- GitHub: https://github.com/nodedots
-- Telegram: https://t.me/nodedots
-
-## Contact
-
-Use the booking, email, and social links on the NodeDots site for collaboration, product discussions, and developer inquiries.
+- Vision: https://nodedots.com/vision

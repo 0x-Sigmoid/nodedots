@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { notes } from "@/lib/notes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -9,11 +8,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    ...notes.map((note) => ({
-      url: `https://nodedots.com/notes/${note.slug}`,
-      lastModified: new Date(note.date),
-      changeFrequency: "monthly" as const,
+    {
+      url: "https://nodedots.com/vision",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
       priority: 0.6,
-    })),
+    },
   ];
 }

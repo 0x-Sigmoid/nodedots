@@ -1,11 +1,11 @@
 {
-  "name": "NodeDots",
+  "name": "NodeDots — Connect the dots before you act",
   "short_name": "NodeDots",
-  "description": "Portfolio for @nodedots, building tools for trust, clarity, and AI decisions.",
+  "description": "NodeDots Code reads your pull request against the whole repo. Join the early-access waitlist.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fffdf8",
-  "theme_color": "#0b5cff",
+  "background_color": "#f7f7f2",
+  "theme_color": "#245ce0",
   "icons": [
     {
       "src": "/nodedots.png",

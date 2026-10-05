@@ -1,39 +1,27 @@
-import { DeveloperPortfolio } from "@/components/developer-portfolio";
+import type { Metadata } from "next";
+import { NodeDotsLanding } from "@/components/nodedots-landing";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "@nodedots",
-  alternateName: "NodeDots",
+  "@type": "SoftwareApplication",
+  name: "NodeDots Code",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Web",
   url: "https://nodedots.com",
-  image: "https://nodedots.com/nodedots.png",
-  jobTitle: "Developer",
+  slogan: "Connect the dots before you act.",
   description:
-    "NodeDots is an independent product studio building small tools for trust, clarity, and AI-assisted decisions.",
-  sameAs: [
-    "https://x.com/nodedots",
-    "https://github.com/nodedots",
-    "https://discord.com/users/nodedots",
-    "https://t.me/nodedots",
-  ],
-  knowsAbout: [
-    "Link trust",
-    "Browser decision tools",
-    "AI decision support",
-    "Practical user experience",
-    "VennURL",
-    "Tabmeet",
-  ],
+    "NodeDots Code reads a pull request in the context of the whole repository and reports what the change affects, what it missed, and what now conflicts.",
 };
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-      <DeveloperPortfolio />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <NodeDotsLanding />
     </>
   );
 }
