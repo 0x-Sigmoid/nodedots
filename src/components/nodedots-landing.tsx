@@ -260,8 +260,7 @@ export function NodeDotsLanding() {
   }
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");    const onChange = () => {
       try {
         if (localStorage.getItem("nodedots-theme")) return;
       } catch {
@@ -273,6 +272,27 @@ export function NodeDotsLanding() {
     };
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll("[data-reveal]"));
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -363,7 +383,7 @@ export function NodeDotsLanding() {
             <h1 id="hero-title">
               Connect the dots.
               <br />
-              Before you ship.
+              <em>Before you ship.</em>
             </h1>
             <p className="hero-description">
               NodeDots reads your pull request against the whole repo and shows what it touched, what it
@@ -423,25 +443,99 @@ export function NodeDotsLanding() {
               </form>
             </div>
           </div>
+          <aside className="hero-report" aria-label="Example NodeDots impact report">
+            <div className="report-bar">
+              <span className="report-pr">PR #184 · Add organization permissions</span>
+              <span className="report-pill">Impact report</span>
+            </div>
+            <div className="report-stats">
+              <div className="report-stat">
+                <span className="report-value">12</span>
+                <span className="report-key">Changed files</span>
+              </div>
+              <div className="report-stat">
+                <span className="report-value">17</span>
+                <span className="report-key">Affected components</span>
+              </div>
+              <div className="report-stat state-missing">
+                <span className="report-value">
+                  <Dot state="missing" />3
+                </span>
+                <span className="report-key">Missing</span>
+              </div>
+              <div className="report-stat state-conflicting">
+                <span className="report-value">
+                  <Dot state="conflicting" />1
+                </span>
+                <span className="report-key">Conflicting</span>
+              </div>
+              <div className="report-stat state-missing">
+                <span className="report-value">
+                  <Dot state="missing" />2
+                </span>
+                <span className="report-key">Untested</span>
+              </div>
+              <div className="report-stat state-uncertain">
+                <span className="report-value">
+                  <Dot state="uncertain" />1
+                </span>
+                <span className="report-key">Uncertain</span>
+              </div>
+            </div>
+            <ul className="report-findings">
+              <li>
+                <Dot state="missing" />
+                <p>
+                  <strong>Missing backfill</strong> — organization_id added, but existing users have no
+                  migration path.
+                </p>
+              </li>
+              <li>
+                <Dot state="conflicting" />
+                <p>
+                  <strong>Schema / UI mismatch</strong> — RoleSelector.tsx still offers the old admin value.
+                </p>
+              </li>
+              <li>
+                <Dot state="action" />
+                <p>
+                  <strong>Before merging</strong> — map Stripe customers, then add an editor-permission test.
+                </p>
+              </li>
+            </ul>
+            <p className="report-note">Illustrative report · Product in development</p>
+          </aside>
+        </section>
+
+        <section className="checks-strip" aria-label="What NodeDots reads" data-reveal>
+          <span className="checks-label">Reads</span>
+          <ul>
+            <li>Dependencies</li>
+            <li>API contracts</li>
+            <li>Schemas</li>
+            <li>Environment</li>
+            <li>Tests</li>
+            <li>Docs</li>
+          </ul>
         </section>
 
         <section className="product-flow" id="how" aria-labelledby="how-title">
           <div className="section-heading">
             <h2 id="how-title">From change to clarity.</h2>
-            <span className="concept-label">How NodeDots works</span>
+            <span className="concept-label">01 · How NodeDots works</span>
           </div>
           <div className="flow-grid">
-            <article className="flow-card">
+            <article className="flow-card" data-reveal>
               <span className="flow-number">01</span>
               <h3>Read the change</h3>
               <p>Start with a pull request, then give NodeDots the context around it.</p>
             </article>
-            <article className="flow-card">
+            <article className="flow-card" data-reveal>
               <span className="flow-number">02</span>
               <h3>Map what it touches</h3>
               <p>See the connected code, tests, data, and assumptions that move with it.</p>
             </article>
-            <article className="flow-card">
+            <article className="flow-card" data-reveal>
               <span className="flow-number">03</span>
               <h3>Review what matters</h3>
               <p>Understand what is confirmed, missing, conflicting, or ready for action.</p>
@@ -452,9 +546,9 @@ export function NodeDotsLanding() {
         <section className="preview-section" id="preview" aria-labelledby="preview-title">
           <div className="section-heading">
             <h2 id="preview-title">See the change in context.</h2>
-            <span className="concept-label">Interactive concept</span>
+            <span className="concept-label">02 · Interactive concept</span>
           </div>
-          <div className="workspace">
+          <div className="workspace" data-reveal>
             <div className="workspace-bar">
               <span className="workspace-name">
                 <Mark /> Change review
@@ -544,7 +638,7 @@ export function NodeDotsLanding() {
               </div>
             </div>
           </div>
-          <ul className="state-legend" aria-label="The five finding states">
+          <ul className="state-legend" aria-label="The five finding states" data-reveal>
             {(Object.keys(states) as State[]).map((state) => (
               <li key={state}>
                 <div>
@@ -557,9 +651,9 @@ export function NodeDotsLanding() {
           </ul>
         </section>
 
-        <section className="future-teaser" aria-labelledby="future-teaser-title">
+        <section className="future-teaser" aria-labelledby="future-teaser-title" data-reveal>
           <div>
-            <p className="concept-label">Beyond Code</p>
+            <p className="concept-label">03 · Beyond Code</p>
             <h2 id="future-teaser-title">The same intelligence can travel further.</h2>
             <p>
               Explore the future directions behind NodeDots Code, from applications and contracts to research,

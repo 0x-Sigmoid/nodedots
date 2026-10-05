@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-const themeInit = `(function(){var t;try{t=localStorage.getItem('nodedots-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.classList.toggle('dark',t==='dark')})()`;
+const themeInit = `(function(){document.documentElement.classList.add('js');var t;try{t=localStorage.getItem('nodedots-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.classList.toggle('dark',t==='dark')})()`;
 
 export default function RootLayout({
   children,
