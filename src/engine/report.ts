@@ -43,7 +43,7 @@ export function rankFindings(findings: Finding[]): Finding[] {
 export interface AssembledReport {
   report: ImpactReport;
   /** Candidate counts per section before the publication cap. */
-  candidateCounts: { missing: number; conflicting: number; untested: number; actionRequired: number };
+  candidateCounts: { missing: number; conflicting: number; uncertain: number; untested: number; actionRequired: number };
   additionalWithheld: number;
 }
 
@@ -60,12 +60,14 @@ export function assembleReport(input: {
 
   const missing = published.filter((finding) => finding.state === "MISSING" && finding.facet !== "UNTESTED");
   const conflicting = published.filter((finding) => finding.state === "CONFLICTING");
+  const uncertain = published.filter((finding) => finding.state === "UNCERTAIN");
   const untested = published.filter((finding) => finding.facet === "UNTESTED");
   const actionRequired = published.filter((finding) => finding.state === "ACTION_REQUIRED");
 
   const candidateCounts = {
     missing: unique.filter((finding) => finding.state === "MISSING" && finding.facet !== "UNTESTED").length,
     conflicting: unique.filter((finding) => finding.state === "CONFLICTING").length,
+    uncertain: unique.filter((finding) => finding.state === "UNCERTAIN").length,
     untested: unique.filter((finding) => finding.facet === "UNTESTED").length,
     actionRequired: unique.filter((finding) => finding.state === "ACTION_REQUIRED").length,
   };
@@ -100,6 +102,7 @@ export function assembleReport(input: {
       affected: input.affected,
       missing,
       conflicting,
+      uncertain,
       untested,
       unknown: input.unknown,
       actionRequired,

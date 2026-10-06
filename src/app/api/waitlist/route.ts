@@ -95,3 +95,28 @@ export async function POST(request: Request) {
     );
   }
 }
+
+/**
+ * Removal requests (unsubscribe): idempotent and shape-identical whether or
+ * not the address was present, so presence can never be probed.
+ */
+export async function DELETE(request: Request) {
+  if (!request.headers.get("content-type")?.includes("application/json")) {
+    return Response.json({ message: "Invalid submission." }, { status: 415, headers });
+  }
+  let data: Record<string, unknown>;
+  try {
+    data = (await request.json()) as Record<string, unknown>;
+  } catch {
+    return Response.json({ message: "Invalid submission." }, { status: 400, headers });
+  }
+  if (typeof data.email !== "string") {
+    return Response.json({ message: "An email address is required." }, { status: 400, headers });
+  }
+  const email = data.email.trim().toLowerCase();
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return Response.json({ message: "Enter a valid email address." }, { status: 400, headers });
+  }
+  signups.delete(email);
+  return Response.json({ message: "Removed. You won't hear from us again." }, { headers });
+}

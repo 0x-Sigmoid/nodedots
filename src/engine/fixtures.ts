@@ -27,16 +27,13 @@ const AUTH_LIB = `export function getUser() {
 }
 `;
 
-const AUTH_BILLING = `import { getUser } from "../../lib/auth";
+const AUTH_BILLING = `import Stripe from "stripe";
+import { getUser } from "../../lib/auth";
 import { UserFields } from "../../db/schema/users";
 
 export async function getCustomer() {
   const user = getUser();
-  return lookup({ firebase_uid: user.id, fields: UserFields });
-}
-
-function lookup(input: unknown) {
-  return input;
+  return Stripe.customers.retrieve(user.id, { firebase_uid: user.id, fields: UserFields });
 }
 `;
 

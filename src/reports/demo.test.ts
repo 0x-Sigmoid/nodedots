@@ -10,28 +10,28 @@ import {
 } from "./demo";
 
 describe("demo registry", () => {
-  it("resolves every listed id to a scenario and a report", () => {
+  it("resolves every listed id to a scenario and a report", async () => {
     for (const id of getDemoIds()) {
       expect(getDemoScenario(id)).toBeDefined();
-      expect(getDemoReport(id)).toBeDefined();
+      expect(await getDemoReport(id)).toBeDefined();
     }
     expect(getDemoScenario("nope")).toBeUndefined();
-    expect(getDemoReport("nope")).toBeUndefined();
+    expect(await getDemoReport("nope")).toBeUndefined();
   });
 
-  it("produces the documented sections per scenario", () => {
-    expect(getDemoReport("env-var")?.missing.map((item) => item.ruleId)).toContain("ENV_EXAMPLE_001");
-    expect(getDemoReport("role-enum")?.conflicting.map((item) => item.ruleId)).toContain("PRISMA_ENUM_001");
-    expect(getDemoReport("auth-migration")?.actionRequired.map((item) => item.ruleId)).toContain(
+  it("produces the documented sections per scenario", async () => {
+    expect((await getDemoReport("env-var"))?.missing.map((item) => item.ruleId)).toContain("ENV_EXAMPLE_001");
+    expect((await getDemoReport("role-enum"))?.conflicting.map((item) => item.ruleId)).toContain("PRISMA_ENUM_001");
+    expect((await getDemoReport("auth-migration"))?.actionRequired.map((item) => item.ruleId)).toContain(
       "AUTH_BOUNDARY_001",
     );
-    const contracts = getDemoReport("api-contracts");
+    const contracts = await getDemoReport("api-contracts");
     expect(contracts?.conflicting.map((item) => item.ruleId)).toContain("API_METHOD_001");
     expect(contracts?.missing.map((item) => item.ruleId)).toContain("API_ROUTE_001");
   });
 
-  it("returns the cached report on repeat calls", () => {
-    expect(getDemoReport("env-var")).toBe(getDemoReport("env-var"));
+  it("returns the cached report on repeat calls", async () => {
+    expect(await getDemoReport("env-var")).toBe(await getDemoReport("env-var"));
   });
 });
 

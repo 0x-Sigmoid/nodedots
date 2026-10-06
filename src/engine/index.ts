@@ -31,6 +31,8 @@ import {
   testCoverageRule,
 } from "./rules";
 import { assembleReport } from "./report";
+import { enrich, heuristicProvider, type EnrichmentProvider } from "@/ai/index";
+import type { EnrichmentContext } from "@/ai/hypotheses";
 import {
   type AffectedEntity,
   type AnalysisInput,
@@ -58,10 +60,21 @@ function isProximate(sourcePath: string, testPath: string): boolean {
   return overlap && (sameDir || sourceStem === testStem);
 }
 
-export function analyze(input: AnalysisInput): ImpactReport {
+export interface AnalyzeOptions {
+  /**
+   * Enrichment providers (docs/08 steps 5–6). Defaults to the heuristic
+   * patterns; pass false to publish deterministic results only, or pass
+   * explicit providers (including a keyed LLM) for model inference.
+   */
+  enrichment?: EnrichmentProvider[] | false;
+}
+
+export async function analyze(input: AnalysisInput, options: AnalyzeOptions = {}): Promise<ImpactReport> {
   const examplePath = input.exampleEnvPath ?? ".env.example";
-  const skippedFiles: { path: string; reason: string }[] = [];
-  const notes: string[] = [];
+  const skippedFiles: { path: string; reason: string }[] = [
+    ...(input.retrievalNotes?.skipped ?? []),
+  ];
+  const notes: string[] = [...(input.retrievalNotes?.truncation ?? [])];
 
   // 1. Snapshot inventory: eligibility per file, changed-file budget.
   const headContents = new Map<string, string>();
@@ -99,6 +112,7 @@ export function analyze(input: AnalysisInput): ImpactReport {
   // 2. Extraction over the head snapshot + base sides of changed files.
   const head = new Map<string, ExtractedFile>();
   const base = new Map<string, ExtractedFile>();
+  const baseContents = new Map<string, string>();
   const testFiles = new Set<string>();
   for (const [path, content] of headContents) {
     if (isTestPath(path)) {
@@ -120,6 +134,7 @@ export function analyze(input: AnalysisInput): ImpactReport {
   for (const change of budgetedChanges) {
     if (change.base !== null && checkEligible(change.path, change.base.length).eligible) {
       base.set(change.path, extractFile(change.path, change.base));
+      baseContents.set(change.path, change.base);
     }
   }
 
@@ -258,6 +273,61 @@ export function analyze(input: AnalysisInput): ImpactReport {
       detail: `${skippedFiles.length} files were excluded from extraction (limits or unsupported content).`,
       paths: skippedFiles.slice(0, 20).map((file) => file.path),
     });
+  }
+  if (input.retrievalNotes?.forkPartial) {
+    unknown.push({
+      category: "coverage",
+      detail: input.retrievalNotes.forkPartial,
+      paths: [],
+    });
+  }
+
+  // Webhook-adjacent secrets (docs/08 worked report): a new secret whose
+  // handler behavior is outside supported extraction is recorded as
+  // Unknown, never asserted.
+  for (const name of newEnvRefs.keys()) {
+    if (!/(SECRET|TOKEN|WEBHOOK)/.test(name)) continue;
+    const spans = newEnvRefs.get(name) ?? [];
+    unknown.push({
+      category: "unresolved",
+      detail: `New secret ${name} has no verifiable handler in scope; webhook and rotation behavior cannot be established.`,
+      paths: [...new Set(spans.map((span) => span.path))],
+    });
+  }
+
+  // 5–6. Bounded enrichment: providers propose, the gate validates, only
+  // survivors publish as UNCERTAIN findings.
+  const providers = options.enrichment === false ? [] : (options.enrichment ?? [heuristicProvider]);
+  if (providers.length > 0) {
+    const enrichmentHead = new Map<string, { content: string; extracted: ExtractedFile }>();
+    for (const [path, extracted] of head) {
+      const content = headContents.get(path);
+      if (content !== undefined) enrichmentHead.set(path, { content, extracted });
+    }
+    const enrichmentBase = new Map<string, { content: string; extracted: ExtractedFile }>();
+    for (const [path, extracted] of base) {
+      const content = baseContents.get(path);
+      if (content !== undefined) enrichmentBase.set(path, { content, extracted });
+    }
+    const enrichmentCtx: EnrichmentContext = {
+      head: enrichmentHead,
+      base: enrichmentBase,
+      changes: budgetedChanges.map((change) => ({
+        path: change.path,
+        kind: change.head === null ? "removed" : change.base === null ? "added" : "modified",
+      })),
+    };
+    const batch = await enrich(
+      enrichmentCtx,
+      providers,
+      new Set(findings.map((finding) => finding.fingerprint)),
+    );
+    findings.push(...batch.findings);
+    unknown.push(...batch.unknown);
+    notes.push(
+      `Enrichment: ${batch.stats.candidates} ${batch.stats.candidates === 1 ? "candidate" : "candidates"}, ${batch.stats.published} published as uncertain, ${batch.stats.demoted + batch.stats.rejected} demoted or rejected.`,
+    );
+    notes.push(...batch.notes);
   }
 
   // Changed inventory (symbols from head, or base for removals).

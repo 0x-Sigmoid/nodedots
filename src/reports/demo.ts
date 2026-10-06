@@ -71,12 +71,12 @@ export function getDemoScenario(id: string): DemoScenario | undefined {
   return DEMO_SCENARIOS.find((scenario) => scenario.id === id);
 }
 
-export function getDemoReport(id: string): ImpactReport | undefined {
+export async function getDemoReport(id: string): Promise<ImpactReport | undefined> {
   const scenario = getDemoScenario(id);
   if (!scenario) return undefined;
   const cached = reportCache.get(id);
   if (cached) return cached;
-  const report = analyze(scenario.build());
+  const report = await analyze(scenario.build());
   reportCache.set(id, report);
   return report;
 }

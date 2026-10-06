@@ -90,6 +90,8 @@ export interface ImpactReport {
   affected: AffectedEntity[];
   missing: Finding[];
   conflicting: Finding[];
+  /** Bounded enrichment hypotheses that survived evidence validation. */
+  uncertain: Finding[];
   untested: Finding[];
   unknown: UnknownItem[];
   actionRequired: Finding[];
@@ -119,6 +121,15 @@ export interface AnalysisInput {
   changes: FileChange[];
   /** Path of the checked example env inventory. Defaults to `.env.example`. */
   exampleEnvPath?: string;
+  /**
+   * Retrieval-side limits (live GitHub fetching). Merged into coverage and
+   * Unknown so partial scope is explicit, never silent.
+   */
+  retrievalNotes?: {
+    skipped: { path: string; reason: string }[];
+    truncation: string[];
+    forkPartial: string | null;
+  };
 }
 
 export type RuleOutcome = "satisfied" | "violated" | "unknown" | "not-applicable";

@@ -13,28 +13,6 @@ import {
 import { StateDot } from "./state-dot";
 import { Mark, SiteHeader } from "./site-header";
 
-function storageKey(scenarioId: string): string {
-  return `nodedots-feedback:${scenarioId}`;
-}
-
-function loadFeedback(scenarioId: string): Record<string, Disposition> {
-  try {
-    const raw = localStorage.getItem(storageKey(scenarioId));
-    if (!raw) return {};
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
-    const valid = DISPOSITIONS.map((item) => item.value);
-    const cleaned: Record<string, Disposition> = {};
-    for (const [key, value] of Object.entries(parsed)) {
-      if (typeof value === "string" && valid.includes(value as Disposition)) {
-        cleaned[key] = value as Disposition;
-      }
-    }
-    return cleaned;
-  } catch {
-    return {};
-  }
-}
-
 function FindingCard({
   finding,
   disposition,
@@ -154,23 +132,27 @@ export function ReportViewer({
   report: ImpactReport;
 }) {
   const [feedback, setFeedback] = useState<Record<string, Disposition>>({});
-  const [hydrated, setHydrated] = useState(false);
+  const [syncError, setSyncError] = useState(false);
 
   useEffect(() => {
-    setFeedback(loadFeedback(scenarioId));
-    setHydrated(true);
+    let cancelled = false;
+    setFeedback({});
+    setSyncError(false);
+    fetch(`/api/reports/${encodeURIComponent(scenarioId)}/feedback`)
+      .then((response) => (response.ok ? response.json() : Promise.reject(new Error("load"))))
+      .then((body: { feedback?: Record<string, Disposition> }) => {
+        if (!cancelled && body.feedback) setFeedback(body.feedback);
+      })
+      .catch(() => {
+        if (!cancelled) setSyncError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [scenarioId]);
 
-  useEffect(() => {
-    if (!hydrated) return;
-    try {
-      localStorage.setItem(storageKey(scenarioId), JSON.stringify(feedback));
-    } catch {
-      // private mode or quota; feedback still works for this visit
-    }
-  }, [feedback, hydrated, scenarioId]);
-
-  function handleDisposition(fingerprint: string, value: Disposition | null) {
+  async function handleDisposition(fingerprint: string, value: Disposition | null) {
+    const previous = feedback[fingerprint];
     setFeedback((current) => {
       if (value === null) {
         const next = { ...current };
@@ -179,11 +161,36 @@ export function ReportViewer({
       }
       return { ...current, [fingerprint]: value };
     });
+    setSyncError(false);
+    try {
+      const response = await fetch(`/api/reports/${encodeURIComponent(scenarioId)}/feedback`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fingerprint, disposition: value }),
+      });
+      if (!response.ok) throw new Error("save");
+      const body = (await response.json()) as { feedback?: Record<string, Disposition> };
+      if (body.feedback) setFeedback(body.feedback);
+    } catch {
+      setFeedback((current) => {
+        if (previous === undefined) {
+          const next = { ...current };
+          delete next[fingerprint];
+          return next;
+        }
+        return { ...current, [fingerprint]: previous };
+      });
+      setSyncError(true);
+    }
   }
 
   const reviewed = Object.keys(feedback).length;
   const total =
-    report.missing.length + report.conflicting.length + report.untested.length + report.actionRequired.length;
+    report.missing.length +
+    report.conflicting.length +
+    report.uncertain.length +
+    report.untested.length +
+    report.actionRequired.length;
 
   return (
     <>
@@ -226,6 +233,11 @@ export function ReportViewer({
             </div>
           </dl>
           <p className="report-note">Deterministic engine output · Illustrative repository · Product in development</p>
+          {syncError && (
+            <p className="form-message error" role="status">
+              Reviews couldn&apos;t sync just now — please try again in a moment.
+            </p>
+          )}
         </section>
 
         <section className="report-section" aria-labelledby="changed-title">
@@ -284,6 +296,15 @@ export function ReportViewer({
           concept="Contracts that disagree"
           findings={report.conflicting}
           empty="No conflicting contracts were detected."
+          feedback={feedback}
+          onDisposition={handleDisposition}
+        />
+        <FindingSection
+          id="uncertain-title"
+          title="Uncertain"
+          concept="Bounded hypotheses to verify, not verdicts"
+          findings={report.uncertain}
+          empty="No uncertain consequences were hypothesized for this change."
           feedback={feedback}
           onDisposition={handleDisposition}
         />

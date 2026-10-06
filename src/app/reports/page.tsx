@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function ReportsIndex() {
+export default async function ReportsIndex() {
   return (
     <>
       <a className="skip-link" href="#main">
@@ -24,27 +24,30 @@ export default function ReportsIndex() {
           no backend, no guessing. Open one to read the findings, evidence, and checklist.
         </p>
         <ul className="reports-list">
-          {DEMO_SCENARIOS.map((scenario) => {
-            const report = getDemoReport(scenario.id);
-            const total =
-              (report?.missing.length ?? 0) +
-              (report?.conflicting.length ?? 0) +
-              (report?.untested.length ?? 0) +
-              (report?.actionRequired.length ?? 0);
-            return (
-              <li key={scenario.id}>
-                <a href={`/reports/${scenario.id}`}>
-                  <span className="concept-label">{scenario.change}</span>
-                  <h2>{scenario.title}</h2>
-                  <p>{scenario.description}</p>
-                  <span className="reports-count">
-                    {total} {total === 1 ? "finding" : "findings"} · {report?.coverage.completeness ?? "unknown"}{" "}
-                    <span aria-hidden="true">↗</span>
-                  </span>
-                </a>
-              </li>
-            );
-          })}
+          {await Promise.all(
+            DEMO_SCENARIOS.map(async (scenario) => {
+              const report = await getDemoReport(scenario.id);
+              const total =
+                (report?.missing.length ?? 0) +
+                (report?.conflicting.length ?? 0) +
+                (report?.uncertain.length ?? 0) +
+                (report?.untested.length ?? 0) +
+                (report?.actionRequired.length ?? 0);
+              return (
+                <li key={scenario.id}>
+                  <a href={`/reports/${scenario.id}`}>
+                    <span className="concept-label">{scenario.change}</span>
+                    <h2>{scenario.title}</h2>
+                    <p>{scenario.description}</p>
+                    <span className="reports-count">
+                      {total} {total === 1 ? "finding" : "findings"} · {report?.coverage.completeness ?? "unknown"}{" "}
+                      <span aria-hidden="true">↗</span>
+                    </span>
+                  </a>
+                </li>
+              );
+            }),
+          )}
         </ul>
       </main>
       <footer className="site-footer">
