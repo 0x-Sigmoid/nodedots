@@ -197,7 +197,7 @@ const connectedEdges = [[0, 1], [0, 2], [1, 3, 4], [2, 3], [4]];
 export function InteractiveDemo({
   sectionId = "preview",
   title = "See the change in context.",
-  concept = "02 · Interactive concept",
+  concept = "Interactive concept",
 }: {
   sectionId?: string;
   title?: string;
@@ -235,6 +235,18 @@ export function InteractiveDemo({
             <button
               key={item.label}
               role="tab"
+              id={`${sectionId}-tab-${index}`}
+              aria-controls={`${sectionId}-panel`}
+              tabIndex={index === active ? 0 : -1}
+              onKeyDown={(event) => {
+                if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+                event.preventDefault();
+                const next = event.key === "Home" ? 0 : event.key === "End" ? journeys.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + journeys.length) % journeys.length;
+                setActive(next);
+                setSelected(3);
+                setSelectionVersion(0);
+                document.getElementById(`${sectionId}-tab-${next}`)?.focus();
+              }}
               type="button"
               aria-selected={index === active}
               data-state={index === active ? "active" : "inactive"}
@@ -248,7 +260,7 @@ export function InteractiveDemo({
             </button>
           ))}
         </div>
-        <div role="tabpanel" aria-label={`${journey.label}: finding and evidence`}>
+        <div role="tabpanel" id={`${sectionId}-panel`} aria-labelledby={`${sectionId}-tab-${active}`}>
           <div className="workspace-body">
             <div className="system-map">
               <div className="map-heading">
@@ -313,17 +325,6 @@ export function InteractiveDemo({
           </div>
         </div>
       </div>
-      <ul className="state-legend" aria-label="The five finding states" data-reveal>
-        {(Object.keys(states) as DotState[]).map((state) => (
-          <li key={state}>
-            <div>
-              <StateDot state={state} />
-              <strong>{states[state].label}</strong>
-            </div>
-            <p>{states[state].meaning}</p>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

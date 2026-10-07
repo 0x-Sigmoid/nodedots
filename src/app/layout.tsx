@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./marketing.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,10 @@ export const metadata: Metadata = {
     siteName: "NodeDots",
     locale: "en_US",
     type: "website",
+  },
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
   },
   twitter: {
     card: "summary_large_image",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StateDot } from "./state-dot";
 
 /**
@@ -13,17 +13,14 @@ export function WaitlistForm({ idPrefix = "wl" }: { idPrefix?: string }) {
   const [status, setStatus] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [privacy, setPrivacy] = useState(false);
+  const privacyDialog = useRef<HTMLDialogElement>(null);
 
   const emailId = `${idPrefix}-email`;
   const websiteId = `${idPrefix}-website`;
 
   useEffect(() => {
-    if (!privacy) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPrivacy(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    if (privacy) privacyDialog.current?.showModal();
+    else privacyDialog.current?.close();
   }, [privacy]);
 
   async function join(value: string, website = "") {
@@ -106,9 +103,7 @@ export function WaitlistForm({ idPrefix = "wl" }: { idPrefix?: string }) {
         </p>
       </form>
 
-      {privacy && (
-        <div className="privacy-overlay">
-          <div className="privacy-dialog" role="dialog" aria-modal="true" aria-labelledby={`${idPrefix}-privacy-title`}>
+          <dialog ref={privacyDialog} className="privacy-dialog" aria-labelledby={`${idPrefix}-privacy-title`} onClose={() => setPrivacy(false)}>
             <h2 id={`${idPrefix}-privacy-title`}>Waitlist privacy</h2>
             <p>
               We collect your email address and the time you join so we can send NodeDots early-access
@@ -126,9 +121,7 @@ export function WaitlistForm({ idPrefix = "wl" }: { idPrefix?: string }) {
             <button className="button" onClick={() => setPrivacy(false)} type="button">
               Got it
             </button>
-          </div>
-        </div>
-      )}
+          </dialog>
     </>
   );
 }

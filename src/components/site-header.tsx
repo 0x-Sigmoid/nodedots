@@ -2,15 +2,12 @@
 
 export function Mark() {
   return (
-    <svg viewBox="0 0 50 16" aria-hidden="true" className="brand-mark">
-      <path d="M5 8H45" stroke="currentColor" strokeWidth="1" />
-      <g fill="currentColor">
-        <circle cx="5" cy="8" r="3.5" />
-        <circle cx="15" cy="8" r="3.5" />
-        <circle cx="25" cy="8" r="3.5" />
-        <circle cx="45" cy="8" r="3.5" />
+    <svg viewBox="14 14 36 36" aria-hidden="true" className="brand-mark">
+      <g fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 44V20L24.2 24.2" />
+        <path d="M39.8 39.8L44 44V20" />
       </g>
-      <circle className="mark-missing" cx="35" cy="8" r="3.5" strokeWidth="2" />
+      <circle cx="32" cy="32" r="4.5" fill="none" stroke="currentColor" strokeWidth="3" />
     </svg>
   );
 }

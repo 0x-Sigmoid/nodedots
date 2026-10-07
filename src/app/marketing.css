@@ -1,0 +1,129 @@
+/* Public waitlist: a quiet canvas, clear invitation, and one working example. */
+.marketing-page {
+  --launch-tint: #f0ecfa;
+  --launch-title: #75648d;
+  --launch-border: #ded7e9;
+  --launch-shadow: 0 16px 48px #24133508;
+  background: var(--paper);
+  min-height: 100vh;
+}
+[data-theme="dark"] .marketing-page {
+  --launch-tint: #1d152b;
+  --launch-title: #b8a3d3;
+  --launch-border: #3e3152;
+  --launch-shadow: 0 16px 48px #00000020;
+}
+.marketing-page .site-header { max-width: 1200px; min-height: 90px; padding: 20px 32px; }
+.marketing-page .brand { gap: 12px; font-size: 21px; letter-spacing: -.04em; }
+.marketing-page .brand-mark { width: 29px; height: 29px; }
+.marketing-page .site-header nav { gap: 24px; }
+.marketing-page .nav-link { font-size: 14px; }
+.marketing-page .nav-join { border-radius: 9px; padding: 11px 17px; font-size: 14px; }
+.marketing-page .theme-toggle { border-color: var(--line); width: 38px; height: 38px; }
+.launch-hero { position: relative; isolation: isolate; text-align: center; padding: 88px 24px 64px; overflow: hidden; }
+.launch-eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; margin-bottom: 26px; }
+.availability-dot { width: 7px; height: 7px; background: var(--confirmed); border-radius: 50%; }
+.eyebrow-divider { color: var(--dim); padding: 0 4px; }
+.launch-hero h1 { font-size: clamp(44px, 6.6vw, 84px); font-weight: 500; letter-spacing: -.065em; line-height: 1.04; margin: 0; }
+.launch-hero h1 > span { color: var(--launch-title); }
+.launch-lead { max-width: 570px; margin: 24px auto 30px; color: var(--muted); font-size: 18px; line-height: 1.65; text-wrap: pretty; }
+.launch-signup { max-width: 535px; margin: 0 auto; scroll-margin-top: 32px; }
+.launch-signup form { display: block; background: transparent; border: 0; padding: 0; box-shadow: none; }
+.launch-signup .signup-row { display: flex; flex-direction: row; gap: 6px; background: var(--surface); border: 1px solid var(--launch-border); border-radius: 13px; padding: 6px; box-shadow: var(--launch-shadow); }
+.launch-signup .signup-row input { width: 0; flex: 1; min-width: 0; padding: 0 14px; height: 48px; border: 0; background: transparent; color: var(--ink); border-radius: 7px; font-size: 16px; }
+.launch-signup .button { height: 48px; padding: 0 19px; border-radius: 8px; white-space: nowrap; font-size: 15px; gap: 8px; }
+.launch-signup .button .state-dot { width: 15px; height: 15px; }
+.launch-signup .signup-notice { margin: 12px auto 0; max-width: 480px; font-size: 14px; line-height: 1.6; }
+.launch-signup .form-message:empty { display: none; }
+.launch-signup .form-message { margin: 12px 0; font-size: 14px; }
+.launch-scope { margin: 22px 0 0; font-size: 14px; color: var(--muted); }
+.demo-jump { display: inline-flex; gap: 16px; margin-top: 38px; color: var(--ink); font-size: 14px; }
+.demo-jump:hover { text-decoration: underline; text-underline-offset: 5px; }
+.hero-orbit { position: absolute; z-index: -1; width: 1050px; height: 510px; border: 1px solid var(--line); border-radius: 50%; left: 50%; top: -395px; transform: translateX(-50%); background: var(--launch-tint); pointer-events: none; }
+.hero-orbit span { position: absolute; bottom: -4px; left: 50%; height: 8px; width: 8px; border: 1px solid var(--dim); background: var(--paper); border-radius: 50%; }
+.hero-orbit span:nth-child(2) { left: 32%; bottom: 13px; }
+.hero-orbit span:nth-child(3) { left: 68%; bottom: 13px; }
+.hero-orbit span:nth-child(4) { left: 18%; bottom: 55px; }
+.hero-orbit span:nth-child(5) { left: 82%; bottom: 55px; }
+.launch-demo { max-width: 1200px; margin: 0 auto; padding: 48px 32px 52px; background: var(--launch-tint); border: 1px solid var(--launch-border); border-radius: 22px; }
+.demo-intro { margin-bottom: 25px; display: flex; align-items: start; justify-content: space-between; gap: 24px; }
+.demo-intro > p:last-child { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.marketing-page .concept-label { color: var(--muted); font-size: 12px; letter-spacing: .09em; }
+.marketing-page .preview-section { max-width: none; padding: 0; margin: 0; }
+.marketing-page .section-heading { margin: 0 0 24px; }
+.marketing-page .section-heading h2 { font-size: clamp(24px, 3vw, 34px); letter-spacing: -.045em; font-weight: 500; }
+.marketing-page .section-heading .concept-label { display: none; }
+.marketing-page .workspace { border: 1px solid var(--launch-border); border-radius: 12px; background: var(--surface); box-shadow: var(--launch-shadow); }
+.marketing-page .workspace[data-reveal] { opacity: 1; transform: none; }
+.marketing-page .workspace-bar { background: var(--surface); padding: 16px 22px; }
+.marketing-page .workspace-name { font-size: 14px; gap: 10px; }
+.marketing-page .workspace-name .brand-mark { width: 20px; height: 20px; }
+.marketing-page .workspace-meta { font-size: 14px; }
+.marketing-page .scenario-tabs { padding: 10px 16px; gap: 6px; background: var(--surface); }
+.marketing-page .scenario-tabs button { border-radius: 7px; padding: 10px 14px; min-height: 42px; font-size: 13px; }
+.marketing-page .scenario-tabs button[data-state="active"] { background: var(--launch-tint); box-shadow: none; color: var(--ink); }
+.marketing-page .system-map { background: var(--paper); padding: 24px; }
+.marketing-page .map-heading { font-size: 14px; }
+.marketing-page .map-note { font-size: 14px; }
+.marketing-page .graph-node { background: var(--surface); border-radius: 9px; font-size: 14px; min-height: 74px; }
+.marketing-page .graph-node small { font-size: 12px; }
+.marketing-page .graph-node.selected { box-shadow: 0 4px 16px #24133508; }
+.marketing-page .finding { padding: 28px; }
+.marketing-page .finding h3 { font-size: 24px; letter-spacing: -.035em; line-height: 1.2; }
+.marketing-page .finding > p, .marketing-page .evidence p, .marketing-page .finding-action p { font-size: 14px; line-height: 1.7; }
+.marketing-page .evidence code { font-size: 14px; }
+.marketing-page .finding-component, .marketing-page .detail-label, .marketing-page .finding-disclaimer { font-size: 14px; }
+.marketing-page .finding-state { font-size: 14px; }
+.launch-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 28px; list-style: none; padding: 0; margin: 26px 0 0; }
+.launch-legend li { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--muted); }
+.launch-legend .state-dot { width: 16px; height: 16px; }
+.demo-caption { text-align: center; color: var(--muted); font-size: 14px; margin: 15px 0 0; }
+.launch-next { max-width: 1136px; margin: 0 auto; padding: 72px 0; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+.launch-next h2 { font-size: 34px; font-weight: 500; letter-spacing: -.045em; margin: 12px 0; }
+.launch-next p:last-child { max-width: 540px; color: var(--muted); font-size: 15px; line-height: 1.7; }
+.next-link { display: inline-flex; white-space: nowrap; gap: 26px; align-items: center; padding: 14px 19px; border: 1px solid var(--line); border-radius: 9px; font-size: 14px; color: var(--ink); }
+.next-link:hover { background: var(--launch-tint); }
+.marketing-page .site-footer { max-width: 1200px; padding: 26px 32px 34px; }
+.marketing-page .footer-identity { flex-direction: row; align-items: center; gap: 24px; font-size: 14px; }
+.marketing-page .footer-links { font-size: 14px; }
+.marketing-page .footer-links a { color: var(--muted); }
+.marketing-page :focus-visible { outline-color: var(--focus); }
+@media (min-width: 1024px) {
+  .marketing-page .workspace-body { grid-template-columns: 1.35fr 1fr; }
+  .marketing-page .node-position { width: 122px; }
+}
+@media (max-width: 1232px) { .launch-demo { margin-left: 24px; margin-right: 24px; } .launch-next { margin-left: 48px; margin-right: 48px; } }
+@media (max-width: 767px) {
+  .marketing-page .site-header { min-height: 76px; padding: 18px 20px; }
+  .marketing-page .site-header nav { gap: 12px; }
+  .marketing-page .brand { font-size: 19px; }
+  .launch-hero { padding: 62px 20px 44px; }
+  .launch-lead { font-size: 16px; max-width: 440px; }
+  .hero-orbit { top: -435px; }
+  .launch-demo { padding: 28px 16px; margin-left: 12px; margin-right: 12px; border-radius: 16px; }
+  .demo-intro { display: block; margin-bottom: 20px; }
+  .demo-intro > p:last-child { margin-top: 12px; }
+  .demo-intro br { display: none; }
+  .marketing-page .scenario-tabs { display: flex; flex-wrap: wrap; padding: 10px; }
+  .marketing-page .scenario-tabs button { flex: 1 1 auto; font-size: 14px; padding: 8px 10px; }
+  .marketing-page .system-map { padding: 20px 16px; }
+  .marketing-page .graph-nodes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .marketing-page .graph-node { width: 100%; min-height: 84px; }
+  .marketing-page .finding { padding: 24px 20px; }
+  .launch-next { margin: 0; padding: 48px 24px; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .launch-next h2 { font-size: 29px; }
+  .marketing-page .footer-identity { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .marketing-page .site-footer { padding: 24px; gap: 24px; }
+}
+@media (max-width: 479px) {
+  .marketing-page .nav-join { display: none; }
+  .launch-hero h1 { font-size: clamp(38px, 10.5vw, 50px); }
+  .launch-signup .signup-row { flex-direction: column; padding: 7px; }
+  .launch-signup .signup-row input { width: 100%; flex: auto; }
+  .launch-signup .button { width: 100%; }
+  .launch-eyebrow { font-size: 14px; }
+  .launch-scope { max-width: 270px; margin-left: auto; margin-right: auto; }
+  .launch-legend { gap: 12px 18px; }
+}
+
+dialog.privacy-dialog { margin: auto; } dialog.privacy-dialog::backdrop { background: #130a2466; }

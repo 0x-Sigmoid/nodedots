@@ -48,6 +48,14 @@ adjacent secrets land in Unknown, never asserted. Pass `{ enrichment: false }` f
 only output. A keyed OpenAI-compatible provider (`llmProvider`) joins through the identical gate;
 prompts carry paths and titles only, never file contents, and any failure yields zero candidates.
 
+## Visual identity
+
+Marketing surfaces use an ngrok-inspired system (`src/app/globals.css`): ambient glow hero/CTA,
+centered pill capture, dot-chain concept visual, CLI preview card, and state chips. The five
+finding states keep color + shape + label in every surface. The signup form stays wired to the
+real waitlist API (consent, privacy, bot protection) — never a fake submit. Product surfaces
+(`/reports/*`) reuse the same tokens without marketing chrome.
+
 ## Beta hardening
 
 - **Abuse control** — shared hashed-IP fixed-window limiter (`src/lib/rate-limit.ts`): waitlist

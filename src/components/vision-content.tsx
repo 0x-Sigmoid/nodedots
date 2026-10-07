@@ -1,21 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-
-function Mark() {
-  return (
-    <svg viewBox="0 0 50 16" aria-hidden="true" className="brand-mark">
-      <path d="M5 8H45" stroke="currentColor" strokeWidth="1" />
-      <g fill="currentColor">
-        <circle cx="5" cy="8" r="3.5" />
-        <circle cx="15" cy="8" r="3.5" />
-        <circle cx="25" cy="8" r="3.5" />
-        <circle cx="45" cy="8" r="3.5" />
-      </g>
-      <circle className="mark-missing" cx="35" cy="8" r="3.5" strokeWidth="2" />
-    </svg>
-  );
-}
+import { Mark } from "./site-header";
 
 // Future directions from overview.md: one relationship engine,
 // specialized modes for non-code workflows. Code ships first;
@@ -162,6 +148,7 @@ export function VisionContent({
 
       <main id="main" className="vision-page">
         <section className="vision-hero" aria-labelledby="vision-title">
+          <div className="glow" aria-hidden="true" />
           <p className="product-label">
             <VisionDot state="action" /> NodeDots <span aria-hidden="true">/</span> Future directions
           </p>
