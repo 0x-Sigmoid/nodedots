@@ -38,6 +38,9 @@ const eslintConfig = defineConfig([
   },
   globalIgnores([
     ".next/**",
+    ".open-next/**",
+    ".wrangler/**",
+    "cloudflare-runtime.d.ts",
     "out/**",
     "build/**",
     "next-env.d.ts",

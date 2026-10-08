@@ -9,24 +9,34 @@
     "lint": "eslint",
     "test": "vitest run",
     "db:migrate": "node scripts/migrate.mts",
-    "retention": "node scripts/retention.mts"
+    "retention": "node scripts/retention.mts",
+    "cf:db:remote": "node scripts/cloudflare-preflight.mts && wrangler d1 migrations apply WAITLIST_DB --remote",
+    "cf:deploy": "node scripts/cloudflare-preflight.mts && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:preview": "opennextjs-cloudflare preview",
+    "cf:db:local": "wrangler d1 migrations apply WAITLIST_DB --local",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:types": "wrangler types --env-interface CloudflareEnv cloudflare-runtime.d.ts"
   },
   "dependencies": {
-    "next": "16.2.9",
+    "@opennextjs/cloudflare": "^1.20.9",
+    "next": "^16.3.8",
     "postgres": "^3.4.9",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261008.1",
     "@electric-sql/pglite": "^0.5.8",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.9",
+    "eslint-config-next": "^16.3.8",
+    "miniflare": "^5.20261006.0-alpha",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^3"
+    "vitest": "^3",
+    "wrangler": "^4.148.0"
   }
 }

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { NodeDotsLanding } from "@/components/nodedots-landing";
+import { clarityDescription, clarityTitle } from "@/lib/marketing-copy";
 
 export const metadata: Metadata = {
+  title: { absolute: clarityTitle },
+  description: clarityDescription,
   alternates: { canonical: "/" },
 };
 
@@ -14,7 +17,7 @@ const structuredData = {
   url: "https://nodedots.com",
   slogan: "Connect the dots before you act.",
   description:
-    "NodeDots Code reads a pull request in the context of the whole repository and reports what the change affects, what it missed, and what now conflicts.",
+    clarityDescription,
 };
 
 export default function Home() {

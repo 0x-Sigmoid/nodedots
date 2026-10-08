@@ -1,0 +1,22 @@
+{
+ "$schema": "./node_modules/wrangler/config-schema.json",
+ "name": "nodedots",
+ "account_id": "9049770452452a45982802aaa153f562",
+ "workers_dev": true,
+ "routes": [{ "pattern": "nodedots.com/*", "zone_id": "04bf46a69a5375182472ea8afd75f26f" }],
+ "main": ".open-next/worker.js",
+ "compatibility_date": "2026-10-08",
+ "compatibility_flags": ["nodejs_compat"],
+ "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+ "observability": { "enabled": true },
+ "vars": { "PRODUCT_PREVIEW_ENABLED": "0", "GITHUB_WEBHOOK_SECRET": "", "DEV_SNAPSHOT_FIXTURE": "", "WAITLIST_EMAIL_FROM": "NodeDots <welcome@nodedots.com>" },
+ "d1_databases": [
+  {
+   "binding": "WAITLIST_DB",
+   "database_name": "nodedots-waitlist",
+   "database_id": "054c04b5-dc44-41e0-84ca-3c6a9bb193c5",
+   "migrations_dir": "d1/migrations"
+  }
+ ]
+}
+

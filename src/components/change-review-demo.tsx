@@ -4,6 +4,7 @@ import { StateDot } from "./state-dot";
 import { useAnalysisPlayer } from "@/lib/analysis-demo/use-analysis-player";
 import { scenarios } from "@/lib/analysis-demo/scenarios";
 import { stateLabels } from "@/lib/analysis-demo/types";
+import { scenarioCaptions } from "@/lib/marketing-copy";
 import { AnalysisRail, AnalysisMetadata, AnalysisLog, AnalysisReport, AnalysisNodeDot, AnalysisAnnouncement, nodeCaption } from "./analysis-demo-shared";
 
 const edges = [
@@ -18,6 +19,7 @@ export function InteractiveDemo({sectionId="preview",title="See the change in co
  function switchScenario(index:number) {player.restart(index);}
  return <section className="preview-section" id={sectionId} aria-labelledby={sectionId+"-title"}>
   <div className="section-heading"><h2 id={sectionId+"-title"}>{title}</h2><span className="concept-label">{concept}</span></div>
+  <p className="scenario-caption">{scenarioCaptions[scenario.id]}</p>
   <div className="workspace analysis-workspace" ref={root} {...interactionProps} data-reveal data-scenario={scenario.id}>
    <div className="workspace-bar"><span className="workspace-name"><Mark/> Change review</span><span className="workspace-meta">Illustrative example · GitHub pull requests</span></div>
    <div className="analysis-toolbar">
@@ -41,7 +43,7 @@ export function InteractiveDemo({sectionId="preview",title="See the change in co
    <div role="tabpanel" id={sectionId+"-panel"} aria-labelledby={sectionId+"-tab-"+selectedScenario} className="analysis-scene" key={scenario.id}>
     <div className="workspace-body">
      <div className="system-map">
-      <div className="map-heading"><span>{scenario.change}</span><span>{snapshot.report?"Select a dot":snapshot.stage+" in progress"}</span></div>
+      <div className="map-heading"><span>{scenario.change}</span><span>{snapshot.report?"Select a component":snapshot.stage+" in progress"}</span></div>
       <div className="graph-nodes" role="group" aria-label={scenario.label+": five connected components. Components are evaluated in discovery order."}>
        <svg className="map-lines" viewBox="0 0 600 300" preserveAspectRatio="none" aria-hidden="true">{edges.map((edge,index)=><path key={index} d={edge} pathLength="1" className={"analysis-edge "+(snapshot.edges[index]?"is-drawn":"")}/>)}</svg>
        {scenario.nodes.map((node,index)=><div className={"node-position analysis-node-position "+(snapshot.discovered[index]?"is-discovered":"")} key={node.name}>

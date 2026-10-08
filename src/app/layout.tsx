@@ -4,6 +4,8 @@ import "./globals.css";
 import "./marketing.css";
 import "./waitlist/waitlist.css";
 import "./analysis-demo.css";
+import "./clarity.css";
+import { clarityDescription, clarityTitle } from "@/lib/marketing-copy";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,11 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "NodeDots — Connect the dots before you act",
+    default: clarityTitle,
     template: "%s | NodeDots",
   },
   description:
-    "NodeDots Code reads your pull request against the whole repo and shows what it touched, what it missed, and what now conflicts. Join the early-access waitlist.",
+    clarityDescription,
   applicationName: "NodeDots",
   metadataBase: new URL("https://nodedots.com"),
   alternates: {
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "NodeDots — Connect the dots. Before you ship.",
-    description: "Read your change against the whole repo. NodeDots Code · Early access.",
+    description: clarityDescription,
     url: "/",
     siteName: "NodeDots",
     locale: "en_US",
@@ -52,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NodeDots — Connect the dots. Before you ship.",
-    description: "Read your change against the whole repo.",
+    description: clarityDescription,
   },
   category: "technology",
 };

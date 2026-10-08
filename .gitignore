@@ -42,3 +42,9 @@ next-env.d.ts
 
 # local persisted analyses (dev report store)
 .data/
+
+# Cloudflare local state, Worker builds, and secrets
+.open-next/
+.wrangler/
+.dev.vars*
+cloudflare-runtime.d.ts

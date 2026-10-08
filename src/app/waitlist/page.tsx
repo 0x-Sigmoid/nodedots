@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { WaitlistExperience } from "@/components/waitlist-experience";
+import { clarityDescription, clarityTitle } from "@/lib/marketing-copy";
 
 export const metadata: Metadata = {
-  title: "Join the waitlist",
-  description: "Get early access to NodeDots Code. See what your pull request affects, misses, and conflicts with.",
+  title: { absolute: clarityTitle },
+  description: clarityDescription,
   alternates: { canonical: "/waitlist" },
 };
 export default function WaitlistPage() {

@@ -163,3 +163,10 @@ player intentionally loops authentication only. The clock advances through
 The default report resolves at 6.6 seconds and holds for six seconds. Counters
 are painted through DOM refs, while React updates only for event milestones.
 Reduced motion and server rendering start with a resolved report.
+
+## Cloudflare waitlist deployment
+The waitlist API uses the WAITLIST_DB D1 binding; signups and hashed rate limits
+are persistent. Apply npm run cf:db:local before local signup testing. Missing
+bindings or failed writes return 503 instead of pretending to save an email.
+See [the Cloudflare launch guide](docs/cloudflare-waitlist-launch.md) for account
+login, production D1 creation, Workers deployment, and nodedots.com setup.

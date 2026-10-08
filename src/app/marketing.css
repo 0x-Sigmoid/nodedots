@@ -1,4 +1,32 @@
 /* Public waitlist: a quiet canvas, clear invitation, and one working example. */
+.signup-confirmation {
+  position:fixed; inset:0; margin:auto; width:min(440px,calc(100vw - 32px));
+  max-height:calc(100dvh - 32px); overflow:auto; border:1px solid var(--line);
+  border-radius:28px; padding:44px 32px 28px; text-align:center; color:var(--ink);
+  background:radial-gradient(ellipse at 50% 0%,#d5ef7924,transparent 58%),var(--surface);
+  box-shadow:0 32px 100px #130a2430; font-family:var(--sans);
+}
+.signup-confirmation[open] { animation:signup-confirmation-enter .22s ease-out; }
+.signup-confirmation::backdrop { background:#130a2466; backdrop-filter:blur(8px); }
+.signup-confirmation-close { position:absolute; top:16px; right:16px; display:grid; place-items:center;
+  width:36px; height:36px; border:1px solid var(--line); border-radius:50%; background:transparent; color:var(--muted); cursor:pointer; }
+.signup-confirmation-close:hover { background:var(--map); color:var(--ink); }
+.signup-confirmation-art { position:relative; display:flex; justify-content:center; align-items:center; gap:34px; margin:12px auto 28px; width:200px; }
+.signup-confirmation-art::before { content:""; position:absolute; inset-inline:16px; top:50%; height:1px; background:var(--line); }
+.signup-confirmation-node { width:8px; height:8px; border-radius:50%; background:var(--dim); position:relative; }
+.signup-confirmation-check { position:relative; display:grid; place-items:center; width:64px; height:64px; border-radius:50%; background:#d5ef79; color:#263318; box-shadow:0 0 0 8px #d5ef791c; }
+.signup-confirmation-eyebrow { margin:0 0 14px; color:var(--muted); font-size:12px; letter-spacing:.05em; }
+dialog.signup-confirmation h2 { margin:0 0 14px; font-size:clamp(28px,5vw,36px); font-weight:500; line-height:1.12; letter-spacing:-.045em; }
+.signup-confirmation-description { margin:0 auto; max-width:290px; color:var(--muted); font-size:16px; line-height:1.6; }
+.signup-confirmation-email { display:inline-block; max-width:100%; overflow-wrap:anywhere; margin:20px 0 0; padding:8px 14px; border:1px solid var(--line); border-radius:18px; font-size:13px; color:var(--ink); background:var(--paper); }
+.signup-confirmation-note { font-size:12px; line-height:1.6; color:var(--muted); margin:16px auto 0; max-width:300px; }
+.signup-confirmation-done { display:block; width:100%; border:0; border-radius:999px; padding:14px 20px; background:var(--btn); color:var(--btnfg); font:500 14px var(--sans); margin-top:28px; cursor:pointer; }
+.signup-confirmation-done:hover { opacity:.88; }
+.signup-confirmation-footer { margin:18px 0 0; color:var(--muted); font-size:11px; }
+@keyframes signup-confirmation-enter { from { opacity:0; transform:translateY(10px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
+@media(prefers-reduced-motion:reduce) { .signup-confirmation[open] { animation:none; } }
+@media(max-width:480px) { .signup-confirmation { padding:40px 24px 24px; border-radius:24px; } }
+
 .marketing-page {
   --launch-tint: #f0ecfa;
   --launch-title: #75648d;
