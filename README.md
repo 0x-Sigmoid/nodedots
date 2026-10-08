@@ -149,3 +149,17 @@ git diff --check
 
 SEO, sitemap, robots, web manifest, JSON-LD, and `llms.txt` are included. Light/dark themes share one
 geometry and respect the OS preference with a persistent manual override.
+
+### Illustrative analysis playback
+The marketing workspace and compact waitlist card use the same deterministic
+player in `src/lib/analysis-demo/`. These examples do not analyze visitor code.
+To add a scenario, add a typed definition to `scenarios.ts`: PR metadata,
+changed-file paths, five evidence-backed illustrative nodes (including snippets),
+and a two- or three-item checklist. `buildTimeline` assigns ordered discovery,
+graph, evaluation, and report events using a fixed seed. Update the full player's
+scenario order in `use-analysis-player.ts` if adding a fourth scenario. The compact
+player intentionally loops authentication only. The clock advances through
+`tick(deltaMs)`, so tests can verify playback without timers or a browser.
+The default report resolves at 6.6 seconds and holds for six seconds. Counters
+are painted through DOM refs, while React updates only for event milestones.
+Reduced motion and server rendering start with a resolved report.

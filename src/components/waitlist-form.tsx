@@ -95,7 +95,7 @@ export function WaitlistForm({ idPrefix = "wl" }: { idPrefix?: string }) {
         </p>
         <p id={`${idPrefix}-notice`} className="signup-notice">
           Early-access and launch updates. Unsubscribe anytime.
-          <br />
+          {" "}
           By joining, you agree to receive these updates.{" "}
           <button type="button" className="text-button" onClick={() => setPrivacy(true)}>
             Privacy

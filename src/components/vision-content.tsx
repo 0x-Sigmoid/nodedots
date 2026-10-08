@@ -141,7 +141,7 @@ export function VisionContent({
             </svg>
           </button>
           <a className="nav-join" href={signupHref}>
-            Join the waitlist <span aria-hidden="true">↗</span>
+            Join the waitlist
           </a>
         </nav>
       </header>
@@ -202,7 +202,7 @@ export function VisionContent({
             <p>Join the early-access list to follow NodeDots Code as it takes shape.</p>
           </div>
           <a className="button" href={signupHref}>
-            Join the waitlist <span aria-hidden="true">↗</span>
+            Join the waitlist
           </a>
         </section>
       </main>

@@ -71,7 +71,7 @@ export function SiteHeader({
         ))}
         <ThemeToggle />
         <a className="nav-join" href="/waitlist">
-          Join the waitlist <span aria-hidden="true">↗</span>
+          Join the waitlist
         </a>
       </nav>
     </header>

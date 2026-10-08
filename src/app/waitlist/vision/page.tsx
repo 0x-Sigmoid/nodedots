@@ -19,7 +19,7 @@ export default function WaitlistVisionPage() {
     <VisionContent
       homeHref="/waitlist"
       changeReviewHref={null}
-      signupHref="/waitlist#signup"
+      signupHref="/waitlist#join"
       backHref="/waitlist"
       backLabel="Back to waitlist"
     />
