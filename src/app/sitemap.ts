@@ -4,27 +4,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: "https://nodedots.com",
-      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: "https://nodedots.com/vision",
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: "https://nodedots.com/waitlist",
-      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: "https://nodedots.com/waitlist/vision",
-      lastModified: new Date(),
+      url: "https://nodedots.com/privacy",
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.3,
     },
   ];
 }

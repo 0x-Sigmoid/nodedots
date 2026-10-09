@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import { Mark } from "./site-header";
 import { StateDot } from "./state-dot";
 import { useAnalysisPlayer } from "@/lib/analysis-demo/use-analysis-player";
@@ -13,11 +14,16 @@ const edges = [
 ];
 export function InteractiveDemo({sectionId="preview",title="See the change in context.",concept="Interactive concept"}:{sectionId?:string;title?:string;concept?:string}) {
  const {root,player,snapshot,interactionProps}=useAnalysisPlayer();
+ useEffect(() => {
+  const sync = () => { const examples: Record<string, number> = {"#auth-example":0,"#migration-example":2,"#api-example":2}; const index=examples[location.hash]; if(index!==undefined)player.restart(index); };
+  sync(); window.addEventListener("hashchange",sync); return () => window.removeEventListener("hashchange",sync);
+ },[player]);
  const {scenario,scenarioIndex:selectedScenario,selected}=snapshot;
  const finding=selected >= 0 ? scenario.nodes[selected] : null;
  const activeFinding=finding && snapshot.phases[selected] === "Resolved";
  function switchScenario(index:number) {player.restart(index);}
  return <section className="preview-section" id={sectionId} aria-labelledby={sectionId+"-title"}>
+  <span id="auth-example" className="nd-nav-anchor" aria-hidden="true" /><span id="migration-example" className="nd-nav-anchor" aria-hidden="true" /><span id="api-example" className="nd-nav-anchor" aria-hidden="true" />
   <div className="section-heading"><h2 id={sectionId+"-title"}>{title}</h2><span className="concept-label">{concept}</span></div>
   <p className="scenario-caption">{scenarioCaptions[scenario.id]}</p>
   <div className="workspace analysis-workspace" ref={root} {...interactionProps} data-reveal data-scenario={scenario.id}>

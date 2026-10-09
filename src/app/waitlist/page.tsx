@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import { WaitlistExperience } from "@/components/waitlist-experience";
-import { clarityDescription, clarityTitle } from "@/lib/marketing-copy";
+import { clarityDescription } from "@/lib/marketing-copy";
+import { pageMetadata } from "@/lib/site-metadata";
+import { SiteStructuredData } from "@/components/site-structured-data";
 
-export const metadata: Metadata = {
-  title: { absolute: clarityTitle },
-  description: clarityDescription,
-  alternates: { canonical: "/waitlist" },
-};
+const title = "NodeDots Code Waitlist | Early Access";
+export const metadata = pageMetadata("/waitlist", title, clarityDescription);
 export default function WaitlistPage() {
-  return <WaitlistExperience />;
+  return <><SiteStructuredData path="/waitlist" title={title} /><WaitlistExperience /></>;
 }

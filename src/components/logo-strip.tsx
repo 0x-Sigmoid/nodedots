@@ -3,5 +3,5 @@ export function LogoStrip() {
   return <section className="stack-strip" aria-labelledby="stack-title"><h2 id="stack-title">Reads the stack you already ship.</h2>
     <div className="stack-window"><div className="stack-track">{[false, true].map(duplicate => <ul className="stack-group" key={String(duplicate)} aria-hidden={duplicate || undefined}>
       {logos.map(([name, slug]) => <li key={slug}><span role="img" aria-label={name} className="stack-logo" style={{ maskImage: `url(/logos/${slug}.svg)` }} /><span aria-hidden="true">{name}</span></li>)}
-    </ul>)}</div><label className="stack-pause"><input type="checkbox" />Pause logo scrolling</label></div><p>Illustrative stack examples. Language and framework coverage: To be announced.</p></section>;
+    </ul>)}</div></div></section>;
 }

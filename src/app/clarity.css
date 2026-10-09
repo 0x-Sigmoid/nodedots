@@ -25,11 +25,7 @@
 .stack-group { display:flex; flex:none; gap:48px; list-style:none; padding:0 48px 0 0; margin:0; }
 .stack-group li { display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px; white-space:nowrap; }
 .stack-logo { display:block; width:24px; height:24px; background:var(--muted); mask-size:contain; mask-repeat:no-repeat; mask-position:center; }
-.stack-strip > p { font-size:11px; color:var(--muted); margin:22px 20px 0; }
 .stack-window:hover .stack-track,.stack-window:focus-within .stack-track { animation-play-state:paused; }
-.stack-window:has(input:checked) .stack-track { animation-play-state:paused; }
-.stack-pause { display:inline-flex; align-items:center; gap:7px; font-size:11px; color:var(--muted); margin-top:20px; cursor:pointer; }
-.stack-pause input { accent-color:var(--muted); }
 @keyframes stack-scroll { to { transform:translateX(-50%); } }
 .clarity-section { width:min(1080px,calc(100% - 48px)); margin:auto; padding-block:72px; scroll-margin-top:32px; }
 .clarity-kicker { font-size:12px; color:var(--muted); margin:0 0 16px; }
@@ -130,5 +126,4 @@
  .stack-window { mask-image:none; } .stack-track { animation:none; width:auto; }
  .stack-group { flex:1; flex-wrap:wrap; justify-content:center; padding:0 16px; gap:24px; }
  .stack-group[aria-hidden="true"] { display:none; }
- .stack-pause { display:none; }
 }

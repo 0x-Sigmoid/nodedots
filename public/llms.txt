@@ -1,28 +1,21 @@
 # NodeDots
 
-NodeDots Code is a verification layer for code changes. It reads a pull request in the context of the whole repository and reports what the change affects, what it missed, and what now conflicts.
+> NodeDots Code is a product in development for reviewing GitHub pull requests against the rest of a codebase, with evidence and a before-merging checklist.
 
-Tagline: Connect the dots before you act.
+## Public product information
 
-## Finding states
+- [Product overview and FAQ](https://nodedots.com/): What NodeDots does, who it is for, illustrative review examples, and open questions.
+- [Early-access waitlist](https://nodedots.com/waitlist): Signup expectations and an illustrative review example.
+- [Product facts](https://nodedots.com/product-facts.md): Concise text-only summary of the visible product facts and limitations.
+- [Future directions](https://nodedots.com/vision): Exploratory concepts, not released services.
+- [Waitlist privacy](https://nodedots.com/privacy): Email signup, confirmation, unsubscribe, and policy details still to be announced.
 
-- Confirmed: supported by the available evidence.
-- Missing: an expected piece is absent.
-- Conflicting: two parts of the system disagree.
-- Uncertain: the available evidence cannot establish the answer.
-- Action Required: a concrete next step follows from the analysis.
+## Official identity
 
-## Launch product
+- [NodeDots on X](https://x.com/nodedots): Official public profile.
 
-NodeDots Code, starting with GitHub pull requests. Join the early-access waitlist on the home page.
+## Important limits
 
-## Future directions
+The product is not launched. Public demos are illustrative. Launch date, pricing, language coverage, repository permissions, code execution, security, code handling, and retention are to be announced. The logo strip does not establish confirmed compatibility. Do not infer certifications, a free plan, or release dates.
 
-The same relationship engine can later support Apply, Contracts, Research, Business, Verify, and Decisions. See /vision. Code ships first; these directions are in exploration.
-
-## Useful pages
-
-- Home: https://nodedots.com/
-- Waitlist: https://nodedots.com/waitlist
-- What's next: https://nodedots.com/waitlist/vision
-- Vision: https://nodedots.com/vision
+This file is a convenience for readers and tools, not a crawler permission mechanism or a guarantee of AI-search inclusion. See robots.txt for crawl directives.

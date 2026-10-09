@@ -1,0 +1,5 @@
+import { Header } from "@/components/navigation/header";
+import { Footer } from "@/components/navigation/footer";
+import { pageMetadata } from "@/lib/site-metadata";
+export const metadata = pageMetadata("/about", "About NodeDots", "NodeDots is building clearer GitHub pull request reviews with evidence, missing work, and a checklist before merging.");
+export default function AboutPage() { return <div className="wl-page clarity-page"><div className="wl-glow" aria-hidden="true" /><Header /><main id="main" className="clarity-section privacy-copy"><h1>About NodeDots</h1><p>NodeDots is building a clearer review before you merge. Code is our first focus: checking a GitHub pull request against the rest of the codebase, with evidence and a checklist of what still needs attention.</p><p>It is for developers and small teams who move quickly, including teams working with AI coding agents. It complements tests, linters, and human review.</p><p>The product is in development. The public demos are illustrative; launch details are to be announced.</p><a href="/waitlist">Join the early-access waitlist</a></main><Footer /></div>; }
