@@ -13,6 +13,9 @@ service's privacy and commercial terms.
 For implementation details and local integration setup, see the
 [development guide](development.md).
 
+Account setup and the manual GitHub review beta are documented in the
+[onboarding setup guide](onboarding-setup.md).
+
 | # | Document | Priority |
 |---|---|---|
 | 1 | [Product Vision & Strategy](01-product-vision-and-strategy.md) | Critical |

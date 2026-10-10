@@ -12,6 +12,13 @@
 .clarity-result { font-size:13px; color:var(--muted); margin:-12px auto 24px; line-height:1.5; }
 .clarity-signup .signup-notice { font-size:12px; margin-top:12px; }
 .clarity-trust { color:var(--muted); font-size:13px; margin:16px 0 0; }
+.clarity-product-actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin-top:28px; }
+.clarity-start-button,.clarity-docs-button { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 24px; border:1px solid var(--line); border-radius:999px; font-size:14px; font-weight:500; }
+.clarity-start-button { background:#c4e75d; color:#17200b; border-color:#c4e75d; }
+.clarity-start-button:hover { background:#d1ef80; border-color:#d1ef80; }
+.clarity-docs-button { color:var(--ink); background:var(--surface); }
+.clarity-docs-button:hover { border-color:var(--dim); }
+.clarity-preview-note { color:var(--muted); font-size:12px; line-height:1.5; margin:14px 0 0; }
 .clarity-example-link { display:inline-flex; gap:12px; padding:12px; margin-top:12px; font-size:14px; text-underline-offset:5px; }
 .clarity-example-link:hover { text-decoration:underline; }
 .clarity-hero-links { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 16px; margin-top:20px; }

@@ -124,17 +124,20 @@ export function ReportViewer({
   change,
   description,
   report,
+  workspace = false,
 }: {
   scenarioId: string;
   title: string;
   change: string;
   description: string;
   report: ImpactReport;
+  workspace?: boolean;
 }) {
   const [feedback, setFeedback] = useState<Record<string, Disposition>>({});
   const [syncError, setSyncError] = useState(false);
 
   useEffect(() => {
+    if (workspace) return;
     let cancelled = false;
     setFeedback({});
     setSyncError(false);
@@ -149,7 +152,7 @@ export function ReportViewer({
     return () => {
       cancelled = true;
     };
-  }, [scenarioId]);
+  }, [scenarioId, workspace]);
 
   async function handleDisposition(fingerprint: string, value: Disposition | null) {
     const previous = feedback[fingerprint];
@@ -162,6 +165,7 @@ export function ReportViewer({
       return { ...current, [fingerprint]: value };
     });
     setSyncError(false);
+    if (workspace) return;
     try {
       const response = await fetch(`/api/reports/${encodeURIComponent(scenarioId)}/feedback`, {
         method: "POST",
@@ -197,12 +201,12 @@ export function ReportViewer({
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <SiteHeader links={[{ href: "/reports", label: "All reports" }]} />
+      <SiteHeader links={[{ href: workspace ? "/workspace" : "/reports", label: workspace ? "Workspace" : "All reports" }]} />
 
       <main id="main" className="report-page">
         <section className="report-hero" aria-labelledby="report-title">
-          <a className="report-back" href="/reports">
-            ← All example reports
+          <a className="report-back" href={workspace ? "/workspace" : "/reports"}>
+            {workspace ? "← Back to workspace" : "← All example reports"}
           </a>
           <p className="product-label">
             <StateDot state="action" /> NodeDots Code <span aria-hidden="true">/</span> Impact report
@@ -232,7 +236,7 @@ export function ReportViewer({
               <dd>{reviewed} of {total}</dd>
             </div>
           </dl>
-          <p className="report-note">Deterministic engine output · Illustrative repository · Product in development</p>
+          <p className="report-note">{workspace ? "Deterministic engine output · Commit-pinned GitHub source · Early beta" : "Deterministic engine output · Illustrative repository · Product in development"}</p>
           {syncError && (
             <p className="form-message error" role="status">
               Reviews couldn&apos;t sync just now — please try again in a moment.

@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/reports"],
+      disallow: ["/api/", "/reports", "/onboarding", "/workspace"],
     },
     sitemap: "https://nodedots.com/sitemap.xml",
   };

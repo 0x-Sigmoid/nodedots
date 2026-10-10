@@ -6,6 +6,7 @@ import "./waitlist/waitlist.css";
 import "./analysis-demo.css";
 import "./clarity.css";
 import "./navigation.css";
+import "./accounts.css";
 import { clarityDescription, clarityTitle } from "@/lib/marketing-copy";
 import { pageMetadata, siteUrl } from "@/lib/site-metadata";
 
