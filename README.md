@@ -48,6 +48,7 @@ This repository contains the NodeDots Code MVP and the public early-access site.
 | **GitHub ingestion** | Signed webhook verification, deduplication, commit-pinned snapshot retrieval, and check-run payloads. Live delivery needs configured credentials. |
 | **Bounded enrichment** | Heuristic hypotheses and an optional OpenAI-compatible provider, filtered through evidence and confidence checks. |
 | **Reviewer feedback** | Accept, dismiss, resolve, or mark a finding intentional, with persisted feedback events. |
+| **Shipping workflow** | Repository readiness, shared shipping policy, change-intent briefs, real commit CI, release assessments, and permission-checked reviewer handoffs. See the [workflow guide](docs/workspace-workflow.md). |
 | **Early-access site** | Marketing pages, interactive examples, a D1-backed waitlist, and configurable Resend confirmations. |
 | **Account onboarding** | GitHub sign-in, selected-repository connection, and a manual review workspace. Requires registering and configuring a GitHub App; see the [setup guide](docs/onboarding-setup.md). |
 
