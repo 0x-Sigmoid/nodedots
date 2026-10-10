@@ -6,6 +6,7 @@ import { Mark, ThemeToggle } from "../site-header";
 import { DropdownPanel } from "./dropdown-panel";
 import { MobileMenu } from "./mobile-menu";
 import { SkipLink } from "./skip-link";
+import { GitHubButton } from "./github-button";
 
 const snapshot = () => `${location.hash}|${Number(scrollY > 8)}|${innerWidth}`;
 const serverSnapshot = () => "|0|1280";
@@ -84,7 +85,7 @@ function HeaderNavigation({ pathname, reduced }: { pathname: string; reduced: bo
         event.preventDefault(); links[next]?.focus();
       }} /></div></div>}
     </div>)}{(reduced ? [navActions.roadmap] : directItems).map(item => <a className="nd-direct-link" key={item.id} href={item.href} aria-current={current(item.href) ? "page" : undefined}>{item.label}{getNavBadge(item) && <small className="nd-nav-badge">{getNavBadge(item)}</small>}</a>)}</nav>
-    <div className="nd-header-actions"><div className="nd-desktop-actions">{!reduced && <a className="nd-example" href={navActions.example.href}>{navActions.example.label}</a>}<ThemeToggle /></div>{!reduced && <a className="wl-pill nd-join" href={navActions.join.href}>{navActions.join.label}</a>}<button className="nd-menu-button" ref={menuButton} type="button" aria-label={sheet ? navText.closeMenu : navText.openMenu} aria-expanded={sheet} aria-controls="nd-mobile-navigation" onClick={() => { cancel(); setOpen(null); setSheet(!sheet); }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">{sheet ? <path d="m5 5 14 14M19 5 5 19" /> : <path d="M4 7h16M4 12h16M4 17h16" />}</svg></button></div>
+    <div className="nd-header-actions"><div className="nd-desktop-actions"><GitHubButton /><ThemeToggle /></div>{!reduced && <a className="wl-pill nd-join" href={navActions.join.href}>{navActions.join.label}</a>}<button className="nd-menu-button" ref={menuButton} type="button" aria-label={sheet ? navText.closeMenu : navText.openMenu} aria-expanded={sheet} aria-controls="nd-mobile-navigation" onClick={() => { cancel(); setOpen(null); setSheet(!sheet); }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">{sheet ? <path d="m5 5 14 14M19 5 5 19" /> : <path d="M4 7h16M4 12h16M4 17h16" />}</svg></button></div>
     {sheet && <MobileMenu groups={groups} openGroup={open} toggle={id => setOpen(open === id ? null : id)} current={current} close={closeSheet} reduced={reduced} />}
   </div></header></>;
 }

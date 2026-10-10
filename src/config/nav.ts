@@ -58,6 +58,7 @@ export const navText = {
   tagline: "Connect the dots before you act.",
   trademark: "Logos are trademarks of their respective owners. No affiliation or endorsement implied.",
 };
+export const githubProject = { label: "GitHub", repo: "0x-Sigmoid/nodedots", href: "https://github.com/0x-Sigmoid/nodedots", description: "NodeDots on GitHub (opens in a new tab)" } as const;
 export const allNavItems: readonly NavItem[] = [...navGroups.flatMap(group => group.items), ...directItems, ...Object.values(navActions)];
 export const comingSoonItems = allNavItems.filter(entry => entry.status !== "live");
 export const getNavBadge = (entry: NavItem) => entry.status === "planned" ? navText.planned : entry.status === "tba" ? navText.tba : entry.liveSoon ? navText.liveSoon : null;

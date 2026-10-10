@@ -26,18 +26,22 @@ The use-case items for review, AI-generated changes, missing tests, authenticati
 
 The database and API links select the existing “Add team roles” example, which includes schema, migration, and route findings. The authentication link selects “Change authentication.” There is no additional integration or dedicated API-contract analyzer behind these examples.
 
-Planned and TBA routes render the shared ComingSoon template with the configured title and description, a Planned badge (plus TBA where applicable), and the existing waitlist form. Future verticals remain on the vision page rather than in the menus. The only social account linked is the existing X account, @nodedots.
+Planned and TBA routes render the shared ComingSoon template with the configured title and description, a Planned badge (plus TBA where applicable), and the existing waitlist form. Future verticals remain on the vision page rather than in the menus. The X link uses the existing @nodedots account. The header also links to the canonical public repository, https://github.com/0x-Sigmoid/nodedots.
 
 The configured `/product/[slug]` and `/resources/[slug]` pages resolve at request time. The current Cloudflare adapter returned 404s for the static-parameter versions; request-time rendering avoids that deployment limitation. Unknown slugs still return a real 404.
 
 ## Behavior and verification
+
+The GitHub button displays stars, not product users. `/api/github-stars` fetches the public repository count without credentials and caches successful responses for 10 minutes. If GitHub is unavailable, private, or rate limited, the button remains a usable repository link without an invented number. On small screens it appears in the mobile navigation sheet. The project adopted Apache 2.0 on 10 October 2026; scope and commercial boundaries are documented in [licensing policy](licensing.md).
+
+GitHub update status (10 October 2026): verified locally on both pages at 360, 768, 1024, and 1280 px, including the unavailable-count fallback. Six API tests and seven header tests pass, as do lint and the Cloudflare build. Published to nodedots.com and the Workers preview on 10 October 2026 (version 14d68c60-88fc-4634-bc7b-cc5818d5ff7a). The marketing header no longer includes the See an example action on desktop or mobile.
 
 - Desktop opens on hover after 120 ms and closes after 200 ms, with a pointer bridge between trigger and panel. Enter/Space toggle; ArrowDown opens and focuses the first link; arrows cycle links; Escape restores trigger focus; Tab out closes without a focus trap.
 - Mobile uses one accordion at a time, a sheet below the 64 px header, body-scroll locking, Escape dismissal, route-change cleanup, and focus return. Touch controls are at least 44 px.
 - The sticky header changes background and border after 8 px of scroll without changing height. Panels clamp horizontally and animate only opacity and transform; reduced motion disables the animation.
 - Unit tests cover config validity, keyboard disclosure behavior, focus return, hover delays, one open panel, mobile scroll locking, route changes, and cleanup. HTTP tests read the actual nav config and verify every internal URL and fragment against a running server. External X is a known existing account, not part of the internal HTTP crawl.
 - Browser checks pass at 360, 768, 1024, and 1280 px in light and dark, including panel bounds, header height, skip-link focus, keyboard interaction, mobile sheet size, scroll restoration, and the reduced waitlist header.
-- Header plus local dependencies: 5,418 bytes gzipped with React and the existing Next router excluded. No production dependency was added; jsdom is a test-only dependency.
+- Header plus local dependencies: 5,783 bytes gzipped with React and the existing Next router excluded. No production dependency was added; jsdom is a test-only dependency.
 - Production verification: all 22 internal links and fragments pass on `https://nodedots.com`. Browser checks at 360 and 1280 px confirm the menus, planned-page waitlist form, reduced waitlist header, and error-free hydration. Unknown product/resource slugs correctly return 404s. All 154 local tests, lint, and the Cloudflare production build pass.
 
 Run `npm test` and `npm run lint`. To include the real navigation URL checks, start the local app and set `NODEDOTS_NAV_TEST_ORIGIN=http://localhost:3000` before running the tests. Without that variable, the HTTP tests are intentionally skipped so offline unit tests do not require a server.
