@@ -2,7 +2,7 @@ export class AccountError extends Error {
  constructor(public status:number, message:string) { super(message); }
 }
 export async function github<T>(token:string,path:string, get:typeof fetch=fetch):Promise<T> {
- const response = await get(`https://api.github.com${path}`,{headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2026-03-10"},cache:"no-store",signal:AbortSignal.timeout(15000)});
+ const response = await get(`https://api.github.com${path}`,{headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json","User-Agent":"NodeDots-Code","X-GitHub-Api-Version":"2026-03-10"},cache:"no-store",signal:AbortSignal.timeout(15000)});
  if (!response.ok) throw new AccountError(response.status === 401 ? 401 : response.status === 404 ? 403 : 502, response.status === 401 ? "Your GitHub session has expired. Sign in again." : "GitHub access could not be verified. Reconnect or try again.");
  return response.json() as Promise<T>;
 }

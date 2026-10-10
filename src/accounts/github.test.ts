@@ -18,6 +18,7 @@ describe("GitHub authorization",()=>{
   const get=vi.fn().mockResolvedValueOnce(Response.json({installations:[install]})).mockResolvedValueOnce(Response.json({repositories:[{id:23,full_name:"owner/repo"}]}));
   expect(await authorizedRepository("token",11,23,"nodedots-code",get)).toMatchObject({id:23});
   expect(get.mock.calls[0][1].headers.Authorization).toBe("Bearer token");
+  expect(get.mock.calls[0][1].headers["User-Agent"]).toBe("NodeDots-Code");
  });
  it("fails closed for revoked credentials",async()=>{
   const get=vi.fn().mockResolvedValue(new Response(null,{status:401}));

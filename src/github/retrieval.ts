@@ -43,7 +43,7 @@ async function apiGet(
 ): Promise<{ status: number; headers: Headers; json: () => Promise<unknown> }> {
   const url = new URL(`${apiBaseOf(options)}${path}`);
   for (const [key, value] of Object.entries(query)) url.searchParams.set(key, value);
-  const headers: Record<string, string> = { Accept: "application/vnd.github+json" };
+  const headers: Record<string, string> = { Accept: "application/vnd.github+json", "User-Agent": "NodeDots-Code" };
   if (options.token) headers.Authorization = `Bearer ${options.token}`;
   const get = options.get ?? fetch;
   const response = await get(url.toString(), { headers });

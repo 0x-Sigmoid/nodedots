@@ -19,4 +19,17 @@ describe("OAuth callback",()=>{
   expect(mocks.bind.mock.calls[1][0]).toMatch(/^[a-f0-9]{64}$/);expect(unseal(mocks.bind.mock.calls[1][3],secret)).toBe("ghu_test_secret");
   expect(JSON.parse(fetchMock.mock.calls[0][1].body).code_verifier).toBe("test-verifier");vi.unstubAllGlobals();
  });
+ it("reports the failed identity stage without logging tokens or authorization codes",async()=>{
+  const logging=vi.spyOn(console,"log").mockImplementation(()=>{});
+  vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({access_token:"ghu_sensitive_value"})));
+  mocks.github.mockRejectedValue(Object.assign(new Error("ghu_sensitive_value"),{status:403}));
+  const response=await GET(new Request("https://nodedots.com/api/account/callback?state=good-state&code=private-code"));
+  expect(response.headers.get("location")).toContain("reason=identity");expect(mocks.batch).not.toHaveBeenCalled();
+  const recorded=JSON.stringify(logging.mock.calls);expect(recorded).toContain('identity');expect(recorded).not.toContain("ghu_sensitive_value");expect(recorded).not.toContain("private-code");logging.mockRestore();vi.unstubAllGlobals();
+ });
+ it("identifies incorrect app credentials without exposing upstream response bodies",async()=>{
+  vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({error:"incorrect_client_credentials",error_description:"private upstream details"})));
+  const response=await GET(new Request("https://nodedots.com/api/account/callback?state=good-state&code=private-code"));
+  expect(response.headers.get("location")).toContain("reason=configuration");expect(mocks.github).not.toHaveBeenCalled();vi.unstubAllGlobals();
+ });
 });
