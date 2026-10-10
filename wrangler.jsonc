@@ -24,7 +24,6 @@
   "queues": {"producers":[{"binding":"WORKSPACE_QUEUE","queue":"nodedots-reviews"}]},
   "vars": {
     "PRODUCT_PREVIEW_ENABLED": "0",
-    "GITHUB_WEBHOOK_SECRET": "",
     "DEV_SNAPSHOT_FIXTURE": "",
     "WAITLIST_EMAIL_FROM": "NodeDots <welcome@nodedots.com>",
     "NODEDOTS_APP_URL": "https://nodedots.com",
