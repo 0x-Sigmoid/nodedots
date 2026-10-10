@@ -1,20 +1,20 @@
 import type {Metadata} from "next";
 import {notFound,redirect} from "next/navigation";
-import {accountRuntime,currentSession} from "@/accounts/runtime";
-import {authorizedRepository} from "@/accounts/github";
+import {AccountError,github} from "@/accounts/github";
 import {unseal} from "@/accounts/security";
 import type {ImpactReport} from "@/engine/types";
-import {ReportViewer} from "@/components/report-viewer";
+import {reviewAccess} from "@/workspace/access";
+import {comparison} from "@/workspace/model";
+import {WorkspaceShell} from "@/components/workspace-shell";
+import {WorkspaceReview} from "@/components/workspace-review";
 export const dynamic="force-dynamic";
 export const metadata:Metadata={title:"Pull request review",robots:{index:false,follow:false}};
 export default async function Review({params}:{params:Promise<{id:string}>}) {
- const runtime=await accountRuntime(),session=await currentSession(runtime);
- if(!session) redirect("/onboarding");
  const {id}=await params;
- const row=await runtime.db.prepare("SELECT * FROM workspace_reviews WHERE id = ? AND github_id = ? AND expires_at > ?").bind(id,session.githubId,Date.now()).first<{installation_id:number;repo_id:number;owner:string;repo:string;pr_number:number;head_sha:string;base_sha:string;report_cipher:string}>();
- if(!row) notFound();
- try{const repo=await authorizedRepository(session.token,row.installation_id,row.repo_id,runtime.slug);if(repo.private&&!runtime.privateRepositories)notFound();}catch{notFound();}
- const report=unseal<ImpactReport>(row.report_cipher,runtime.secret);
- if(!report) notFound();
- return <ReportViewer scenarioId={id} title={`PR #${row.pr_number} — ${row.owner}/${row.repo}`} change={`Head ${row.head_sha.slice(0,12)} over base ${row.base_sha.slice(0,12)}`} description="Analysis of commit-pinned GitHub source. Review coverage and evidence before acting. Your dispositions stay in this browser session." report={report} workspace />;
+ let access;try{access=await reviewAccess(id);}catch(error){if(error instanceof AccountError&&error.status===401)redirect("/onboarding");notFound();}
+ const {runtime,session,row,report}=access;
+ const previous=await runtime.db.prepare("SELECT report_cipher FROM workspace_reviews WHERE github_id=? AND repo_id=? AND pr_number=? AND head_sha<>? AND created_at<? AND expires_at>? ORDER BY created_at DESC LIMIT 1").bind(session.githubId,row.repo_id,row.pr_number,row.head_sha,row.created_at,Date.now()).first<{report_cipher:string}>();
+ const before=previous?unseal<ImpactReport>(previous.report_cipher,runtime.secret):null;
+ let stale=false;try{const pr=await github<{head:{sha:string}}>(session.token,`/repos/${row.owner}/${row.repo}/pulls/${row.pr_number}`);stale=pr.head.sha!==row.head_sha;}catch{/* The report remains pinned and accessible through verified repository access. */}
+ return <WorkspaceShell login={session.login} active="review"><WorkspaceReview id={id} report={report} repository={`${row.owner}/${row.repo}`} pull={row.pr_number} head={row.head_sha} base={row.base_sha} installation={row.installation_id} repoId={row.repo_id} stale={stale} compare={before?comparison(report,before):null}/></WorkspaceShell>;
 }

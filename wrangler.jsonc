@@ -21,6 +21,7 @@
   "observability": {
     "enabled": true
   },
+  "queues": {"producers":[{"binding":"WORKSPACE_QUEUE","queue":"nodedots-reviews"}]},
   "vars": {
     "PRODUCT_PREVIEW_ENABLED": "0",
     "GITHUB_WEBHOOK_SECRET": "",

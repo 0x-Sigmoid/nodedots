@@ -1,0 +1,2 @@
+ALTER TABLE workspace_jobs ADD COLUMN lease TEXT;
+ALTER TABLE workspace_jobs ADD COLUMN attempts INTEGER NOT NULL DEFAULT 0;

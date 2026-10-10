@@ -67,6 +67,7 @@ export interface AnalyzeOptions {
    * explicit providers (including a keyed LLM) for model inference.
    */
   enrichment?: EnrichmentProvider[] | false;
+  onStage?: (stage:"mapping"|"checking"|"preparing") => Promise<void>;
 }
 
 export async function analyze(input: AnalysisInput, options: AnalyzeOptions = {}): Promise<ImpactReport> {
@@ -191,6 +192,7 @@ export async function analyze(input: AnalysisInput, options: AnalyzeOptions = {}
   }
 
   // Graph + impact traversal.
+  await options.onStage?.("mapping");
   const envExampleNames = new Set(exampleNames?.keys() ?? []);
   const routePatterns = new Map(routes.map((route) => [route.route, { methods: route.methods, path: route.path }]));
   const { graph, reverse, unresolvedImports } = buildGraph({
@@ -225,6 +227,7 @@ export async function analyze(input: AnalysisInput, options: AnalyzeOptions = {}
   };
 
   // 3–4. Direction-aware traversal done above; evaluate deterministic rules.
+  await options.onStage?.("checking");
   const ruleResults = [
     envExampleRule(ctx),
     apiRouteRule(ctx),
@@ -369,5 +372,6 @@ export async function analyze(input: AnalysisInput, options: AnalyzeOptions = {}
   };
 
   // 7–9. Dedupe, rank, publish, checklist.
+  await options.onStage?.("preparing");
   return assembleReport({ changed, affected, findings, unknown, coverage }).report;
 }

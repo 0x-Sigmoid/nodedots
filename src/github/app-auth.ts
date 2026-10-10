@@ -37,6 +37,7 @@ export async function mintInstallationToken(
     method: "POST",
     headers: {
       Accept: "application/vnd.github+json",
+      "User-Agent": "NodeDots-Code",
       Authorization: `Bearer ${jwt}`,
       "Content-Type": "application/json",
     },

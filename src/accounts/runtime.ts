@@ -9,7 +9,7 @@ export async function accountRuntime() {
  const get = (name:string) => String(process.env.NODE_ENV === "development" ? process.env[name] || values[name] || "" : values[name] || process.env[name] || "");
  const origin = new URL(get("NODEDOTS_APP_URL") || (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://nodedots.com")).origin;
  const config = {origin, clientId:get("GITHUB_CLIENT_ID"), clientSecret:get("GITHUB_CLIENT_SECRET"), slug:get("GITHUB_APP_SLUG"), secret:get("AUTH_SECRET")};
- return { ...config, privateRepositories:get("ALLOW_PRIVATE_REPOSITORIES")==="1", db:values.WAITLIST_DB as D1Database, ready:!!(config.clientId && config.clientSecret && config.slug && config.secret.length >= 32 && values.WAITLIST_DB) };
+ return { ...config, appId:get("GITHUB_APP_ID"), privateKey:get("GITHUB_PRIVATE_KEY_PEM"), webhookSecret:get("GITHUB_WEBHOOK_SECRET"), runnerSecret:get("WORKSPACE_RUNNER_SECRET"), privateRepositories:get("ALLOW_PRIVATE_REPOSITORIES")==="1", db:values.WAITLIST_DB as D1Database, ready:!!(config.clientId && config.clientSecret && config.slug && config.secret.length >= 32 && values.WAITLIST_DB) };
 }
 export type AccountRuntime = Awaited<ReturnType<typeof accountRuntime>>;
 export type AccountSession = {githubId:number; login:string; token:string};
