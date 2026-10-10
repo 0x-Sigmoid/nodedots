@@ -19,7 +19,7 @@
 <p align="center">
   <a href="https://nodedots.com">Website</a> ·
   <a href="https://nodedots.com/waitlist">Join the waitlist</a> ·
-  <a href="docs/README.md">Documentation</a> ·
+  <a href="https://nodedots.com/doc">Documentation</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#contributing">Contribute</a> ·
   <a href="https://x.com/nodedots">Follow on X</a>

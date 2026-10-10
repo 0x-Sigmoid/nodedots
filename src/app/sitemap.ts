@@ -1,26 +1,4 @@
-import type { MetadataRoute } from "next";
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://nodedots.com",
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: "https://nodedots.com/vision",
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: "https://nodedots.com/waitlist",
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: "https://nodedots.com/privacy",
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
-  ];
-}
+import type {MetadataRoute} from "next";
+import {guides} from "@/content/docs";
+import {legalPages} from "@/content/legal";
+export default function sitemap():MetadataRoute.Sitemap{return ["","/vision","/waitlist","/doc","/legal",...legalPages.map(p=>p.href),...guides.map(g=>`/doc/${g.slug}`)].map(path=>({url:`https://nodedots.com${path}`,changeFrequency:path===""||path==="/doc"?"weekly":"monthly",priority:path===""?1:path==="/waitlist"?.9:path.startsWith("/doc")?.7:.3}));}

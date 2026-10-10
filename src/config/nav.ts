@@ -24,18 +24,19 @@ export const useCaseItems = [
   item("architecture-drift", "Spot architecture drift", "/product/architecture-drift", "Explore changes that move away from the intended architecture.", "graph", "planned", "use-cases", "Understand your system"),
 ] as const;
 export const resourceItems = [
-  item("docs", "Docs", "/resources/docs", "Public setup and usage documentation is to be announced.", "book", "tba", "resources"),
+  item("docs", "Docs", "/doc", "Connect GitHub, review changes, and prepare releases.", "book", "live", "resources"),
   item("roadmap", "Roadmap", "/vision", "What's next for NodeDots.", "roadmap", "live", "resources"),
   item("changelog", "Changelog", "/resources/changelog", "Public release notes are to be announced.", "history", "tba", "resources"),
   item("blog", "Blog", "/resources/blog", "Product stories and practical examples are to be announced.", "article", "tba", "resources"),
   item("faq", "FAQ", "/#faq", "Answers about the product and early access.", "question", "live", "resources"),
-  item("security", "Security and data handling", "/resources/security", "Code handling, permissions, retention, and security policy are to be announced.", "shield", "tba", "resources"),
+  item("security", "Security and data handling", "/security", "Current repository access, data handling, and reporting guidance.", "shield", "live", "resources"),
   item("contact", "Contact", "/contact", "Find NodeDots and join the conversation.", "contact", "live", "resources"),
 ] as const;
 export const companyItems = [
   item("about", "About", "/about", "What NodeDots is building and who it is for.", "info", "live", "company"),
   { ...resourceItems[6], group: "company" as const },
-  item("privacy", "Privacy", "/privacy", "How the early-access waitlist handles your email.", "shield", "live", "company"),
+  item("privacy", "Privacy", "/privacy", "Waitlist, GitHub account, and repository data handling.", "shield", "live", "company"),
+  item("legal", "Legal & trust", "/legal", "Terms, cookies, security, and analysis disclosures.", "shield", "live", "company"),
 ] as const;
 export const navGroups: readonly NavGroup[] = [
   { id: "product", label: "Product", items: productItems },

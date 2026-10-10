@@ -1,0 +1,5 @@
+"use client";
+import {useState} from "react";
+import {usePathname} from "next/navigation";
+import {guides} from "@/content/docs";
+export function DocNavigation(){const path=usePathname(),[query,setQuery]=useState("");const visible=guides.filter(g=>`${g.title} ${g.description} ${g.sections.flatMap(s=>[s.title,...s.paragraphs]).join(" ")}`.toLowerCase().includes(query.trim().toLowerCase()));return <aside className="doc-sidebar"><a className="doc-home" aria-current={path==="/doc"?"page":undefined} href="/doc">Documentation</a><label className="doc-search">Search guides<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Find a workflow…"/></label><nav aria-label="Documentation guides">{visible.map(g=><a key={g.slug} href={`/doc/${g.slug}`} aria-current={path===`/doc/${g.slug}`?"page":undefined}><small>{g.category}</small>{g.title}</a>)}</nav>{!visible.length&&<p role="status">No matching guides. Try “CI”, “sharing”, or “GitHub”.</p>}<a className="doc-help" href="/legal">Legal & data handling →</a></aside>;}

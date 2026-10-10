@@ -1,52 +1,21 @@
-# NodeDots Code
+# NodeDots Code: current hosted beta
 
 Canonical website: https://nodedots.com/
-Official X profile: https://x.com/nodedots
+Documentation: https://nodedots.com/doc
+Legal and trust: https://nodedots.com/legal
+Official X: https://x.com/nodedots
 
-## What it is
+NodeDots provides advisory impact reviews for public GitHub repositories. Sign in with GitHub, connect selected repositories through the GitHub App, and run a commit-pinned PR review. The workspace includes an inbox, evidence-backed impact map, saved reviewer decisions, history, shipping setup, intent briefs, CI visibility, release assessments, and individually shared reports.
 
-NodeDots Code is a product in development for reviewing GitHub pull requests
-against the rest of a codebase. It is intended to flag affected code, missing
-work, conflicts, and tests to review before merging.
+The hosted workflow uses deterministic rules for supported JavaScript/TypeScript relationships, selected routes, schemas, environment references, and test imports. It does not execute repository code, autonomously fix or merge changes, or send source to an external AI provider. Public marketing demos remain illustrative.
 
-## Who it is for
+Finding states, severity, confidence, coverage, CI status, and human decisions are separate. No findings in the checked scope does not establish safety. CI snapshots are for the reviewed head; freshness checks the current PR head and base. Human assessments do not prove acceptance criteria or fixes.
 
-Developers and small teams, including teams using AI coding agents or shipping
-quickly. It complements code review, tests, and linters; it is not a code generator.
+Reports and jobs expire after seven days. Sessions last at most eight hours. Shipping policies and intent briefs persist until replaced or cleared. Named sharing requires both a grant and current repository access through NodeDots. Exports are controlled by the person copying or downloading them.
 
-## Planned workflow and output
+Only maintainers or administrators configure shipping policy and opt-in automation. NodeDots GitHub checks are advisory and neutral. Private repositories are disabled. Pricing, certifications, uptime commitments, private-repository agreements, and release dates are not promised.
 
-Connect a GitHub repository, open a pull request, and receive an impact report
-as a comment on that pull request. The report shows findings with file-and-line
-evidence and a checklist to review before merging. The public demos and report
-on the site are illustrative examples, not analysis of a visitor's repository.
-
-Finding states: Confirmed (checks out), Missing (expected but absent), Conflicting
-(two parts disagree), Uncertain (not enough evidence), Action required (needs your decision).
-
-## Current availability
-
-The public website collects early-access waitlist signups. It does not connect to
-repositories or read visitors' code. A confirmation email follows signup; one
-notification is planned when early access opens. Unsubscribe is available.
-
-Launch date, pricing, supported languages and frameworks, repository permissions,
-code execution details, code handling, security policy, and retention:
-**To be announced**. The stack logos are illustrative examples, not confirmed
-compatibility. Do not infer a free plan, release date, certification, or universal coverage.
-
-## Future directions
-
-NodeDots Apply, Contracts, Research, Business, Verify, and Decisions are future
-directions in exploration. NodeDots Code is the initial focus. These are not
-currently released services.
-
-## Public reference pages
-
-- Product overview and FAQ: https://nodedots.com/
-- Early-access waitlist: https://nodedots.com/waitlist
-- Future directions: https://nodedots.com/vision
-- Waitlist privacy: https://nodedots.com/privacy
-
-These facts summarize visible public content. They do not replace the full
-product policy, whose details remain to be announced.
+Full guides: https://nodedots.com/doc
+Current data handling: https://nodedots.com/privacy
+Necessary browser storage: https://nodedots.com/cookies
+Analysis disclosure: https://nodedots.com/ai-disclosure

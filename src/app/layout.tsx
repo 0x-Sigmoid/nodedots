@@ -7,6 +7,7 @@ import "./analysis-demo.css";
 import "./clarity.css";
 import "./navigation.css";
 import "./accounts.css";
+import "./doc.css";
 import { clarityDescription, clarityTitle } from "@/lib/marketing-copy";
 import { pageMetadata, siteUrl } from "@/lib/site-metadata";
 

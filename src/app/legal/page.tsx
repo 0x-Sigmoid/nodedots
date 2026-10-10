@@ -1,0 +1,5 @@
+import {LegalPage} from "@/components/legal-page";
+import {legalPages} from "@/content/legal";
+import {pageMetadata} from "@/lib/site-metadata";
+export const metadata=pageMetadata("/legal","Legal & Trust | NodeDots","Terms, privacy, cookies, security, and analysis disclosures for the NodeDots public beta.");
+export default function Legal(){return <LegalPage path="/legal" title="Clarity includes how we work." intro="The current beta’s usage rules, data handling, and product limits, in one place."><div className="doc-cards">{legalPages.map(p=><a key={p.href} href={p.href} className="doc-card"><h2>{p.title}</h2><p>{p.description}</p><span>Read document →</span></a>)}</div><h2>Current publication scope</h2><p>These pages describe the hosted public-repository beta. A verified legal operator identity, dedicated privacy/support contact, and jurisdiction-specific service terms remain to be published. No paid-service agreement, service-level commitment, or private-repository processing agreement is offered by these notices.</p></LegalPage>;}

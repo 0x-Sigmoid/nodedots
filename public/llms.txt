@@ -1,21 +1,23 @@
 # NodeDots
 
-> NodeDots Code is a product in development for reviewing GitHub pull requests against the rest of a codebase, with evidence and a before-merging checklist.
+> NodeDots Code is an open-source public-repository beta for advisory GitHub pull request impact reviews.
 
-## Public product information
+## Product and documentation
 
-- [Product overview and FAQ](https://nodedots.com/): What NodeDots does, who it is for, illustrative review examples, and open questions.
-- [Early-access waitlist](https://nodedots.com/waitlist): Signup expectations and an illustrative review example.
-- [Product facts](https://nodedots.com/product-facts.md): Concise text-only summary of the visible product facts and limitations.
+- [Product](https://nodedots.com/): Overview and illustrative examples.
+- [Documentation](https://nodedots.com/doc): Dedicated in-app setup and usage guides.
+- [Quickstart](https://nodedots.com/doc/getting-started): Sign in, connect a public repository, and review a PR.
+- [Shipping workflow](https://nodedots.com/doc/shipping): Policies, intent briefs, CI snapshots, and release assessments.
+- [Sharing](https://nodedots.com/doc/sharing): Permission-checked reports and exported handoffs.
+- [Troubleshooting](https://nodedots.com/doc/troubleshooting): Auth, access, reviews, and missing signals.
+- [Waitlist](https://nodedots.com/waitlist): Early-access email signup.
 - [Future directions](https://nodedots.com/vision): Exploratory concepts, not released services.
-- [Waitlist privacy](https://nodedots.com/privacy): Email signup, confirmation, unsubscribe, and policy details still to be announced.
+- [Legal and trust](https://nodedots.com/legal): Terms, privacy, cookies, security, analysis disclosure, and license.
+- [Product facts](https://nodedots.com/product-facts.md): Current scope and limitations.
 
-## Official identity
+## Limits
 
-- [NodeDots on X](https://x.com/nodedots): Official public profile.
+The hosted review path uses deterministic analysis of supported JavaScript/TypeScript relationships, reads commit-pinned source, and does not execute repository code or send source to an external AI provider. Reports are advisory. Coverage and unknowns remain visible. Private repositories are disabled. Reports and jobs expire after seven days. Shipping policies and briefs persist until replaced or cleared. Pricing and wider availability are not promised.
 
-## Important limits
-
-The product is not launched. Public demos are illustrative. Launch date, pricing, language coverage, repository permissions, code execution, security, code handling, and retention are to be announced. The logo strip does not establish confirmed compatibility. Do not infer certifications, a free plan, or release dates.
-
-This file is a convenience for readers and tools, not a crawler permission mechanism or a guarantee of AI-search inclusion. See robots.txt for crawl directives.
+Official profile: https://x.com/nodedots
+This file supports discovery; it is not a crawler permission mechanism or a guarantee of AI-search inclusion. See robots.txt for crawl directives.

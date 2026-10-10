@@ -5,7 +5,7 @@ import { WaitlistForm } from "./waitlist-form";
 import { clarityDescription, clarityHeadline, clarityTrust } from "@/lib/marketing-copy";
 export function ClarityHeader({ compact = false }: { compact?: boolean; external?: boolean }) { return <Header reduced={compact} />; }
 export function ProductActions() {
-  return <div className="clarity-product-actions"><a className="clarity-start-button" href="/onboarding">Get Started</a><a className="clarity-docs-button" href="https://github.com/0x-Sigmoid/nodedots/tree/main/docs">Read the Docs</a></div>;
+  return <div className="clarity-product-actions"><a className="clarity-start-button" href="/onboarding">Get Started</a><a className="clarity-docs-button" href="/doc">Read the Docs</a></div>;
 }
 export function ClarityHero({ compact = false }: { compact?: boolean }) {
   return <section className="clarity-hero" aria-labelledby="hero-title"><p className="clarity-eyebrow"><span className="availability-dot" />For GitHub pull requests</p><h1 id="hero-title">{clarityHeadline}</h1><p className="clarity-lead">{clarityDescription}</p><p className="clarity-result">An impact report for developers and teams, right on the pull request.</p>{compact ? <><div className="wl-signup clarity-signup" id="join"><WaitlistForm idPrefix="early-access" /></div><p className="clarity-trust">{clarityTrust}</p></> : <><ProductActions /><p className="clarity-preview-note">Connect GitHub. Choose a repository. Review your first pull request.</p></>}

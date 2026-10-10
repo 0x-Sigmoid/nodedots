@@ -169,8 +169,9 @@ export function WaitlistForm({ idPrefix = "wl" }: { idPrefix?: string }) {
             </p>
             <p>
               Joining is optional. Emails include an unsubscribe option. Waitlist retention and the
-              full product data-handling policy: To be announced.
+              repository data handling are explained in the full privacy notice.
             </p>
+            <p><a className="text-button" href="/privacy">Read the full privacy notice →</a></p>
             <button className="button" onClick={() => setPrivacy(false)} type="button">
               Got it
             </button>

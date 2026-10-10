@@ -1,0 +1,5 @@
+import type {ReactNode} from "react";
+import {Header} from "@/components/navigation/header";
+import {Footer} from "@/components/navigation/footer";
+import {legalPages} from "@/content/legal";
+export function LegalPage({path,title,intro,children}:{path:string;title:string;intro:string;children:ReactNode}){return <div className="wl-page clarity-page"><Header/><main id="main" className="legal-layout"><aside className="legal-nav"><a className="doc-home" href="/legal">Legal & trust</a><nav aria-label="Legal documents">{legalPages.map(page=><a key={page.href} href={page.href} aria-current={path===page.href?"page":undefined}>{page.title}</a>)}</nav><a className="doc-help" href="/doc/data-and-permissions">Data handling guide →</a></aside><article className="doc-article legal-article"><p className="doc-eyebrow">NODEDOTS / PUBLIC BETA / UPDATED 10 OCTOBER 2026</p><h1>{title}</h1><p className="doc-lead">{intro}</p>{children}<div className="doc-actions"><a className="clarity-docs-button" href="/legal">All legal documents</a><a className="clarity-docs-button" href="/contact">Contact NodeDots</a></div></article></main><Footer/></div>;}
