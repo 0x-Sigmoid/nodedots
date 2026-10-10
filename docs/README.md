@@ -6,6 +6,13 @@ This package turns the supplied product overview and strategy into 24 connected 
 
 ## Document index
 
+Repository licensing is defined in [licensing policy](licensing.md),
+[LICENSE](../LICENSE), and [NOTICE](../NOTICE). It is separate from the hosted
+service's privacy and commercial terms.
+
+For implementation details and local integration setup, see the
+[development guide](development.md).
+
 | # | Document | Priority |
 |---|---|---|
 | 1 | [Product Vision & Strategy](01-product-vision-and-strategy.md) | Critical |
