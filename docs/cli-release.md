@@ -44,3 +44,14 @@ Update the in-app CLI guide, public product facts, and README with the registry 
 ## First candidate validation
 
 Version 0.1.0 passed all nine jobs in [CLI release checks](https://github.com/0x-Sigmoid/nodedots/actions/runs/38246473950) at commit f9293d94a3d4d8be3d93dc11da36987d3d7e6247. The Linux Node 24 artifact is retained locally at .wrangler/cli-ci-artifact/nodedots-0.1.0.tgz. Its bundled executable SHA-256 is 92a76b1f5b06e5dfbf922376f7ea674b496ddbfad31ef9bdf2a1628c4352d7bd. npm published version 0.1.0 on 12 October 2026. Registry tarball SHA-1: c85dee1bd249fe327d79d25467d3576a57f48663. Run npm run cli:verify-registry to download from a fresh cache and repeat the installed-command repository checks.
+
+## Public-repository validation
+
+The released CLI also completed direct commit comparisons on two public projects without checking out or executing repository code:
+
+| Repository | Base | Head | Supported changes analyzed | Coverage |
+| --- | --- | --- | --- | --- |
+| sindresorhus/p-limit | 8907801ffa0252b51490a2c9efbb388d0c83391f | a8a6fbec4e0e866d6d779b10889bb4f5567e70eb | 4 | Partial: three changed files outside supported source scope |
+| jakearchibald/idb | 74fd25b141443677ed31f5c9838b1113193e61af | 654c746bef13f9fe7f5871e03ac58015cebace5a | 8 | Partial: six changed files outside supported scope or generated/binary content |
+
+These are execution and coverage checks, not proof that every real-world defect was found. Golden engine tests and known-finding fixtures assess expected observations separately. The final main-branch matrix also passed all nine jobs: https://github.com/0x-Sigmoid/nodedots/actions/runs/38248423874.
