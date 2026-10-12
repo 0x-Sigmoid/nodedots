@@ -18,7 +18,10 @@
     "cf:build": "opennextjs-cloudflare build",
     "cf:types": "wrangler types --env-interface CloudflareEnv cloudflare-runtime.d.ts",
     "cli:build": "node scripts/build-cli.mjs",
-    "preflight": "node packages/cli/dist/nodedots.cjs check"
+    "preflight": "node packages/cli/dist/nodedots.cjs check",
+    "cli:test": "vitest run src/cli/cli.test.ts src/engine/engine.test.ts src/eval/eval.test.ts",
+    "cli:smoke": "node scripts/test-cli-package.mjs",
+    "cli:release-check": "npm run cli:build && npm run cli:test && npm run cli:smoke"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.9",

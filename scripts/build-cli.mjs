@@ -1,7 +1,12 @@
 import {build} from "esbuild";
-import {copyFile,mkdir,chmod} from "node:fs/promises";
+import {copyFile,mkdir,chmod,readFile,writeFile} from "node:fs/promises";
+import {createHash} from "node:crypto";
+const pkg=JSON.parse(await readFile("packages/cli/package.json","utf8"));
+const runner=await readFile("src/cli/run.ts","utf8");
+if(!runner.includes(`export const version = "${pkg.version}";`))throw new Error("CLI and package versions differ.");
 await mkdir("packages/cli/dist",{recursive:true});
 await build({entryPoints:["src/cli/main.ts"],outfile:"packages/cli/dist/nodedots.cjs",bundle:true,platform:"node",format:"cjs",target:"node22",tsconfig:"tsconfig.json",banner:{js:"#!/usr/bin/env node"},legalComments:"eof"});
 await copyFile("LICENSE","packages/cli/LICENSE");await copyFile("NOTICE","packages/cli/NOTICE");
 await chmod("packages/cli/dist/nodedots.cjs",0o755);
+await writeFile("packages/cli/dist/build.json",JSON.stringify({schemaVersion:1,version:pkg.version,sha256:createHash("sha256").update(await readFile("packages/cli/dist/nodedots.cjs")).digest("hex")},null,2)+"\n");
 console.log("Built packages/cli/dist/nodedots.cjs");

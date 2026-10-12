@@ -2,7 +2,22 @@
 
 Follow a local change into its connected code, configuration, and tests before pushing.
 
-**Source preview, Node.js 22+.** This package is not published to npm. Build it from the NodeDots repository:
+**Node.js 22+ and Git.** Local advisory analysis; no GitHub connection or web server required.
+
+```sh
+npx nodedots check --staged
+```
+
+Or install the command:
+
+```sh
+npm install --global nodedots
+nodedots check
+```
+
+Run inside a Git repository with an existing commit. Use `--cwd /path/to/repository` to select another repository. npm may download the CLI on first use; the analysis itself stays local.
+
+### Build from source
 
 ```sh
 npm ci
@@ -10,13 +25,7 @@ npm run cli:build
 npm run preflight -- --staged
 ```
 
-Check another repository without starting the web app or connecting GitHub:
-
-```sh
-node packages/cli/dist/nodedots.cjs check --cwd /path/to/repository
-```
-
-Create a portable installation artifact with `npm pack ./packages/cli`. Install the resulting archive with `npm install --global ./nodedots-cli-0.1.0.tgz`. The installed command is `nodedots check`; the bundle needs Node and Git, with no web server or runtime npm dependencies.
+Run `npm run cli:release-check` to test the engine, build a verified archive, install it, and exercise the installed command against TypeScript, React, and Prisma repository fixtures. `npm pack ./packages/cli` produces a portable archive for local installation. The package has no runtime npm dependencies and no install hooks.
 
 ## Select the snapshot
 
