@@ -21,7 +21,8 @@
     "preflight": "node packages/cli/dist/nodedots.cjs check",
     "cli:test": "vitest run src/cli/cli.test.ts src/engine/engine.test.ts src/eval/eval.test.ts",
     "cli:smoke": "node scripts/test-cli-package.mjs",
-    "cli:release-check": "npm run cli:build && npm run cli:test && npm run cli:smoke"
+    "cli:release-check": "npm run cli:build && npm run cli:test && npm run cli:smoke",
+    "cli:verify-registry": "node scripts/test-cli-package.mjs --registry"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.9",

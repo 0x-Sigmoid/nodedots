@@ -43,7 +43,7 @@ This repository contains the NodeDots Code MVP and the public early-access site.
 
 | Area | Implemented in the repository |
 | --- | --- |
-| **Pre-flight CLI** | Local working-tree, staged, and commit checks with text/JSON evidence and optional failure policies. Source preview; [usage guide](packages/cli/README.md). |
+| **Pre-flight CLI** | Local working-tree, staged, and commit checks with text/JSON evidence and optional failure policies. Install with `npx nodedots check`; [usage guide](packages/cli/README.md). |
 | **Change-impact engine** | Static extraction, relationship traversal, and deterministic rules for supported TypeScript/JavaScript patterns. |
 | **Inspectable reports** | Findings, source evidence, affected areas, coverage notes, and review checklists. |
 | **GitHub ingestion** | Signed webhook verification, deduplication, commit-pinned snapshot retrieval, and check-run payloads. Live delivery needs configured credentials. |
@@ -67,13 +67,11 @@ Analysis is advisory. Partial or unsupported scope is reported explicitly. Live 
 
 ## Check before you push
 
-The local CLI shares the deterministic engine and needs no web server or GitHub connection. It is a source preview, not an npm release.
+The local CLI shares the deterministic engine and needs no web server or GitHub connection. Node.js 22+ and Git are required. Release checks cover Linux, Windows, and macOS on Node 22, 24, and 26.
 
 ```sh
-npm ci
-npm run cli:build
-npm run preflight -- --staged
-node packages/cli/dist/nodedots.cjs check --cwd /path/to/repository
+npx nodedots check --staged
+npx nodedots check --cwd /path/to/repository
 ```
 
 Use `--format json` for structured output, `--base REF --head REF` for commit comparisons, and optional `--fail-on high --require-full` policies. Read the [CLI guide](packages/cli/README.md) for installation, scope, and exit codes.
@@ -139,7 +137,7 @@ docs/                       Product direction, architecture, and operating guide
 
 ## What is next
 
-The focus is useful, evidence-backed reviews of GitHub pull requests. The **pre-flight CLI**, **software memory**, and **architecture-drift workflows** are planned directions, not released features.
+The focus is useful, evidence-backed reviews of GitHub pull requests. The **pre-flight CLI** provides local advisory checks. **Software memory** and **architecture-drift workflows** remain planned directions.
 
 See the [roadmap](docs/21-product-roadmap.md) and [product vision](docs/01-product-vision-and-strategy.md). The 24 product documents include proposals and launch targets; they are not a list of capabilities already available.
 

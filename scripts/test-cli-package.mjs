@@ -5,6 +5,7 @@ import {tmpdir} from "node:os";
 import assert from "node:assert/strict";
 
 const root=process.cwd(),npmCli=process.env.npm_execpath;
+const registry=process.argv.includes("--registry");
 assert(npmCli&&existsSync(npmCli),"Run this check with npm run cli:smoke.");
 const temp=mkdtempSync(join(tmpdir(),"nodedots-release-"));
 const pkg=JSON.parse(readFileSync(join(root,"packages/cli/package.json"),"utf8"));
@@ -18,7 +19,7 @@ function npm(args,cwd=root){const result=execute(process.execPath,[npmCli,...arg
 function git(cwd,...args){const result=execute("git",["-c","core.hooksPath=/dev/null","-c","commit.gpgsign=false",...args],cwd);assert.equal(result.status,0,`Git ${args[0]} failed.`);return result.stdout.trim();}
 function put(cwd,path,content){mkdirSync(join(cwd,path,".."),{recursive:true});writeFileSync(join(cwd,path),content);}
 try {
- const packed=JSON.parse(npm(["pack","./packages/cli","--pack-destination",destination,"--json"]));
+ const packed=JSON.parse(npm(["pack",registry?`${pkg.name}@${pkg.version}`:"./packages/cli","--pack-destination",destination,"--json",...(registry?["--cache",join(temp,"fresh-cache"),"--prefer-online","--registry","https://registry.npmjs.org"]:[])]));
  const archive=join(destination,packed[0].filename);
  const expected=["LICENSE","NOTICE","README.md","dist/build.json","dist/nodedots.cjs","package.json","verify-package.cjs"].sort();
  assert.deepEqual(packed[0].files.map(f=>f.path).sort(),expected,"Unexpected archive contents.");
@@ -46,7 +47,7 @@ try {
   console.log(`${fixture.name}: installed command, JSON/text, policy, and commit checks passed`);
  }
  const invalid=execute(process.execPath,[installed,"check","--format","invalid"]);assert.equal(invalid.status,2);assert.equal(invalid.stdout,"");
- console.log(`Validated ${pkg.name}@${pkg.version} on ${process.platform}, Node ${process.version}; archive ${archive}`);
+ console.log(`Validated ${registry?"registry":"source"} ${pkg.name}@${pkg.version} on ${process.platform}, Node ${process.version}; archive ${archive}`);
 }finally{
  if(resolve(temp).startsWith(resolve(tmpdir())+sep+"nodedots-release-"))rmSync(temp,{recursive:true,force:true,maxRetries:5,retryDelay:100});
 }

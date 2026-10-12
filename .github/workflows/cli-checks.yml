@@ -1,5 +1,6 @@
 name: CLI release checks
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     paths: ['src/cli/**', 'src/engine/**', 'src/ai/**', 'src/workspace/model.ts', 'packages/cli/**', 'scripts/*cli*', 'package*.json', '.github/workflows/cli-checks.yml']
