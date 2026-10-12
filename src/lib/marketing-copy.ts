@@ -1,6 +1,6 @@
 export const clarityHeadlineLines = ["Catch What Your", "Pull Request Missed."] as const;
 export const clarityHeadline = clarityHeadlineLines.join(" ");
-export const clarityDescription = "NodeDots checks every pull request against your whole codebase and flags what it breaks, forgets, or leaves untested, before you merge.";
+export const clarityDescription = "Follow your pull request into connected code, configuration, and tests. Catch missing work and conflicting assumptions before you merge.";
 export const clarityTitle = "NodeDots: Catch What Your Pull Request Missed";
 export const clarityTrust = "Early access. One email when it opens.";
 export const scenarioCaptions: Record<string, string> = {

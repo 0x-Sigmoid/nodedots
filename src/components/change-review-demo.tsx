@@ -1,4 +1,5 @@
 "use client";
+import {CodeBlock} from "./code-block";
 import { useEffect } from "react";
 import { Mark } from "./site-header";
 import { StateDot } from "./state-dot";
@@ -64,7 +65,7 @@ export function InteractiveDemo({sectionId="preview",title="See the change in co
       <details className="analysis-files"><summary>{scenario.files.length} changed files</summary><ul>{scenario.files.map(path=><li key={path}><code>{path}</code></li>)}</ul></details>
      </div>
      <aside className="finding analysis-finding" aria-label="Selected component finding">
-      {activeFinding&&finding?<><span className={"finding-state state-"+finding.state}><StateDot state={finding.state}/>{stateLabels[finding.state]}</span><span className="finding-component">{finding.name}</span><h3>{finding.title}</h3><p>{finding.why}</p><div className="evidence"><span className="detail-label">Evidence</span><code>{finding.path}</code><p>{finding.evidence}</p><pre>{finding.snippet}</pre></div><div className="finding-action"><span className="detail-label">Suggested next step</span><p>{finding.next}</p></div></>:<div className="analysis-stage-copy"><span className="detail-label">{snapshot.stage}</span><h3>{scenario.change}</h3><p>{snapshot.stage==="Ingest"?"Fetching the pull request diff and identifying changed files.":snapshot.stage==="Parse"?"Indexing symbols, imports, and exports across the repository.":"Following connections from the changed code into the rest of the system."}</p></div>}
+      {activeFinding&&finding?<><span className={"finding-state state-"+finding.state}><StateDot state={finding.state}/>{stateLabels[finding.state]}</span><span className="finding-component">{finding.name}</span><h3>{finding.title}</h3><p>{finding.why}</p><div className="evidence"><span className="detail-label">Evidence</span><code>{finding.path}</code><p>{finding.evidence}</p><CodeBlock code={finding.snippet} label="Source"/></div><div className="finding-action"><span className="detail-label">Suggested next step</span><p>{finding.next}</p></div></>:<div className="analysis-stage-copy"><span className="detail-label">{snapshot.stage}</span><h3>{scenario.change}</h3><p>{snapshot.stage==="Ingest"?"Fetching the pull request diff and identifying changed files.":snapshot.stage==="Parse"?"Indexing symbols, imports, and exports across the repository.":"Following connections from the changed code into the rest of the system."}</p></div>}
       <AnalysisReport snapshot={snapshot}/>
       <span className="finding-disclaimer">Illustrative finding · Product in development</span>
      </aside>

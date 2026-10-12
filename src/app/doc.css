@@ -2,3 +2,14 @@
 .doc-layout,.legal-layout{--ws-highlight:#eff6d8}[data-theme=dark] .doc-layout,[data-theme=dark] .legal-layout{--ws-highlight:#26321b}.account-note a{text-decoration:underline;text-underline-offset:3px}
 
 .doc-command{max-width:100%;overflow:auto;padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:13px;line-height:1.9;tab-size:2}.doc-command code{font-family:ui-monospace,monospace}
+
+/* Shared copy controls for documentation and evidence code panes. */
+.nd-code-block{min-width:0;max-width:100%;margin:18px 0;border:1px solid var(--nd-code-border,var(--line));border-radius:12px;background:var(--nd-code-bg,var(--surface));color:var(--nd-code-ink,var(--ink));overflow:hidden}
+.nd-code-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 12px;border-bottom:1px solid var(--nd-code-border,var(--line));font-size:11px;line-height:1.5}
+.nd-code-toolbar>span{opacity:.7}.nd-code-toolbar button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:76px;min-height:36px;padding:6px 10px;border:1px solid transparent;border-radius:6px;font:inherit;color:inherit;background:transparent;cursor:pointer}
+.nd-code-toolbar button:hover{background:color-mix(in srgb,currentColor 6%,transparent);border-color:var(--nd-code-border,var(--line))}.nd-code-toolbar button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.nd-code-block pre{max-width:100%;margin:0;padding:18px;border:0;border-radius:0;background:transparent;overflow:auto;white-space:pre;font:13px/1.8 var(--mono,ui-monospace,monospace);tab-size:2}
+.clarity-page .nd-code-block pre code{color:inherit;font:inherit;border:0;padding:0;background:none}
+.nd-code-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.nd-code-error{display:block;padding:0 18px 14px;font-size:12px;line-height:1.6}
+.analysis-compact .nd-code-block{--nd-code-border:var(--term-line);--nd-code-bg:transparent;--nd-code-ink:var(--term-ink)}
